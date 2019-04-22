@@ -4,20 +4,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TitledPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="312.0" text="Bus Management System Login" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
-    <content>
-        <AnchorPane prefHeight="233.0" prefWidth="381.0">
-            <children>
-                <Label layoutX="67.0" layoutY="58.0" text="ID" />
-                <Label layoutX="37.0" layoutY="105.0" text="PASSWORD" />
-                <PasswordField layoutX="130.0" layoutY="101.0" />
-                <TextField layoutX="130.0" layoutY="54.0" />
-                <Button layoutX="73.0" layoutY="169.0" mnemonicParsing="false" text="Login" />
-                <Button layoutX="179.0" layoutY="169.0" mnemonicParsing="false" text="Exit" />
-            </children>
-        </AnchorPane>
-    </content>
-</TitledPane>
+
+  <AnchorPane prefHeight="233.0" prefWidth="381.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kr.knu.busreservations.UI">
+      <children>
+          <Label layoutX="89.0" layoutY="58.0" text="ID" />
+          <Label layoutX="63.0" layoutY="105.0" text="PASSWORD" />
+          <PasswordField fx:id="pw" layoutX="179.0" layoutY="101.0" />
+          <TextField fx:id="id" layoutX="179.0" layoutY="54.0" />
+          <Button layoutX="106.0" layoutY="169.0" mnemonicParsing="false" onAction="#Login" text="Login" />
+          <Button layoutX="241.0" layoutY="169.0" mnemonicParsing="false" onAction="#Exit" text="Exit" />
+      <TextField fx:id="LoginIsSuccess" editable="false" layoutX="110.0" layoutY="134.0" />
+      </children>
+  </AnchorPane>

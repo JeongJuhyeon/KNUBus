@@ -2,19 +2,33 @@ package kr.knu.busreservations;
 
 public class LoginInterface {
 
-    public static Boolean login() {
-        DBManagement DB = new DBManagement("p1");
+    public static boolean login(String id, String pw) {
+        String ID = id;
+        String password = pw;
 
-        String ID = "Messi"; // UI구현시 해당 값에서 받아옴, 현재는 임의의 값을 미리 지정
-        String password = "1234"; // UI구현시 해당 값에서 받아옴, 현재는 임의의 값을 미리 지정
+            //DB없이 로컬 test
+        if (pw.equals("1234"))
+            return true;
 
-        User login_user = new User();
+        return false;
 
-        login_user = DB.verifyUserDetails(ID, password);
+
+
+/*
+        //DB에 연결
+
+        DBManagement DB = new DBManagement();
+
+        User login_user = DB.verifyUserDetails(ID, password);
 
         if (login_user != null)
             return true;
 
         return false;
+
+*/
     }
+
+
+
 }

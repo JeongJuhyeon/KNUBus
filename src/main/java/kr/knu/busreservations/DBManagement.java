@@ -21,15 +21,16 @@ public class DBManagement {
     private MongoDatabase database;
     private MongoCollection<Document> collection;
 
-    public DBManagement() {
-        dbAdminPassword = "";
-        mongoAddress = String.format("mongodb://myUserAdmin:%s@155.230.91.220", dbAdminPassword);
-
-        mongoClient = MongoClients.create(mongoAddress);
-        database = mongoClient.getDatabase("testdb");
-
+    public DBManagement(String database) {
+        this.dbAdminPassword = "";
+        this.mongoAddress = String.format("mongodb://myUserAdmin:%s@155.230.91.220", dbAdminPassword);
+        this.mongoClient = MongoClients.create(mongoAddress);
+        this.database = mongoClient.getDatabase(database);
     }
 
+    public DBManagement() {
+        this("testdb");
+    }
 
     public static void main(String[] args) {
         connectionTest();
@@ -53,13 +54,15 @@ public class DBManagement {
     };
 
     public User verifyUserDetails(String username, String password){
+        setCollection("users");
+        collection.find().forEach(printBlock);
+
         BasicDBObject query = new BasicDBObject();
         List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
         obj.add(new BasicDBObject("username", username));
         obj.add(new BasicDBObject("password", password));
         query.put("$and", obj);
 
-        setCollection("p1_users");
         Document result = collection.find(query).first();
         if (result == null) {
             return null;

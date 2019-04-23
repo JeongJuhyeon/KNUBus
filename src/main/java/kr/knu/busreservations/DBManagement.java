@@ -55,7 +55,7 @@ public class DBManagement {
 
     public User verifyUserDetails(String username, String password){
         setCollection("users");
-        collection.find().forEach(printBlock);
+        // Debugging: collection.find().forEach(printBlock);
 
         BasicDBObject query = new BasicDBObject();
         List<BasicDBObject> obj = new ArrayList<BasicDBObject>();

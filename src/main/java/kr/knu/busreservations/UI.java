@@ -34,6 +34,7 @@ public class UI extends Application {
         primaryStage.setTitle("Bus Reservation System");
         primaryStage.setScene(new Scene(root, 381, 233));
         primaryStage.show();
+        DBManagement.connect();
     }
 
     public void Exit()

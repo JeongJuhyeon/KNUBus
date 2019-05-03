@@ -2,7 +2,7 @@ package kr.knu.busreservations;
 
 public class LoginInterface {
 
-    public static boolean login(String id, String pw) {
+    public boolean login(String id, String pw) {
         String ID = id;
         String password = pw;
 

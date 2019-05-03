@@ -19,18 +19,66 @@ import java.util.Base64;
 import static com.mongodb.client.model.Filters.*;
 
 public class DBManagement {
-    private String dbAdminPassword;
-    private String mongoAddress;
-    private static MongoClient mongoClient;
+    private static MongoClient mongoClient = null;
     private MongoDatabase database;
     private MongoCollection<Document> collection;
 
-    public DBManagement(String database) {
-        String DBPW = getDBPW();
+    public static void main(String[] args) {
+        DBManagement dbManagement = new DBManagement();
+        dbManagement.connectionTest();
+    }
 
-        this.mongoAddress = String.format("mongodb://myUserAdmin:%s@155.230.91.220", getDBPW());
-        this.mongoClient = MongoClients.create(mongoAddress);
+
+    public DBManagement(String database) {
+        connect();
         this.database = mongoClient.getDatabase(database);
+    }
+
+    public DBManagement(){
+        this("testdb");
+    }
+
+
+    static void connect() {
+        if (mongoClient == null) {
+            String DBPW = getDBPW();
+            String mongoAddress = String.format("mongodb://myUserAdmin:%s@155.230.91.220", getDBPW());
+            mongoClient = MongoClients.create(mongoAddress);
+        }
+    }
+
+    void connectionTest() {
+        String mongoAddress = String.format("mongodb://myUserAdmin:%s@155.230.91.220", getDBPW());
+
+        MongoClient mongoClient = MongoClients.create(mongoAddress);
+        MongoDatabase database = mongoClient.getDatabase("testdb");
+        MongoCollection<Document> collection = database.getCollection("testcollection");
+        collection.find().forEach(printBlock);
+    }
+
+    private static Block<Document> printBlock = new Block<Document>() {
+        @Override
+        public void apply(final Document document) {
+            System.out.println(document.toJson());
+        }
+    };
+
+    User verifyUserDetails(String username, String password){
+        setCollection("users");
+        // Debugging: collection.find().forEach(printBlock);
+
+        BasicDBObject query = new BasicDBObject();
+        List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
+        obj.add(new BasicDBObject("username", username));
+        obj.add(new BasicDBObject("password", password));
+        query.put("$and", obj);
+
+        Document result = collection.find(query).first();
+        if (result == null) {
+            return null;
+        }
+
+        return new User((String) result.get("user_id"), username);
     }
 
     private static String getDBPW(){
@@ -50,50 +98,11 @@ public class DBManagement {
         return new String(decodedBytes);
     }
 
-
-    public DBManagement(){
-        this("testdb");
-    }
-
-    public static void main(String[] args) {
-        connectionTest();
-    }
-
-    static void connectionTest() {
-        String mongoAddress = String.format("mongodb://myUserAdmin:%s@155.230.91.220", getDBPW());
-
-        MongoClient mongoClient = MongoClients.create(mongoAddress);
-        MongoDatabase database = mongoClient.getDatabase("testdb");
-        MongoCollection<Document> collection = database.getCollection("testcollection");
-        collection.find().forEach(printBlock);
-    }
-
-    private static Block<Document> printBlock = new Block<Document>() {
-        @Override
-        public void apply(final Document document) {
-            System.out.println(document.toJson());
-        }
-    };
-
-    public User verifyUserDetails(String username, String password){
-        setCollection("users");
-        // Debugging: collection.find().forEach(printBlock);
-
-        BasicDBObject query = new BasicDBObject();
-        List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
-        obj.add(new BasicDBObject("username", username));
-        obj.add(new BasicDBObject("password", password));
-        query.put("$and", obj);
-
-        Document result = collection.find(query).first();
-        if (result == null) {
-            return null;
-        }
-
-        return new User((String) result.get("user_id"), username);
-    }
-
-    public void setCollection(String collectionName){
+    private void setCollection(String collectionName){
         collection = database.getCollection(collectionName);
+    }
+
+    private void setDatabase(String dbName){
+        this.database = mongoClient.getDatabase(dbName);
     }
 }

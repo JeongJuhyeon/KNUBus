@@ -9,26 +9,49 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import com.mongodb.client.MongoCursor;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.Base64;
 
 import static com.mongodb.client.model.Filters.*;
 
 public class DBManagement {
     private String dbAdminPassword;
     private String mongoAddress;
-    private MongoClient mongoClient;
+    private static MongoClient mongoClient;
     private MongoDatabase database;
     private MongoCollection<Document> collection;
 
     public DBManagement(String database) {
-        this.dbAdminPassword = "";
-        this.mongoAddress = String.format("mongodb://myUserAdmin:%s@155.230.91.220", dbAdminPassword);
+        String DBPW = getDBPW();
+
+        this.mongoAddress = String.format("mongodb://myUserAdmin:%s@155.230.91.220", getDBPW());
         this.mongoClient = MongoClients.create(mongoAddress);
         this.database = mongoClient.getDatabase(database);
     }
 
-    public DBManagement() {
+    private static String getDBPW(){
+        String encodedString = new String();
+        try {
+            String path = new File("").getAbsolutePath() + "\\bin.exe";
+            Scanner scanner = new Scanner(new File(path));
+            encodedString = scanner.next();
+            scanner.close();
+        }
+        catch(FileNotFoundException e) {
+            System.err.println(e);
+            System.exit(3);
+        }
+
+        byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
+        return new String(decodedBytes);
+    }
+
+
+    public DBManagement(){
         this("testdb");
     }
 
@@ -37,8 +60,7 @@ public class DBManagement {
     }
 
     static void connectionTest() {
-        String dbAdminPassword = "";
-        String mongoAddress = String.format("mongodb://myUserAdmin:%s@155.230.91.220", dbAdminPassword);
+        String mongoAddress = String.format("mongodb://myUserAdmin:%s@155.230.91.220", getDBPW());
 
         MongoClient mongoClient = MongoClients.create(mongoAddress);
         MongoDatabase database = mongoClient.getDatabase("testdb");
@@ -46,7 +68,7 @@ public class DBManagement {
         collection.find().forEach(printBlock);
     }
 
-    static Block<Document> printBlock = new Block<Document>() {
+    private static Block<Document> printBlock = new Block<Document>() {
         @Override
         public void apply(final Document document) {
             System.out.println(document.toJson());

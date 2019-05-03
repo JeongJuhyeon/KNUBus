@@ -92,3 +92,5 @@ fabric.properties
 target/
 
 \.idea/misc\.xml
+
+bin\.exe

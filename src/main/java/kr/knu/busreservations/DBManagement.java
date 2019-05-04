@@ -2,12 +2,8 @@ package kr.knu.busreservations;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
 import org.bson.Document;
-import com.mongodb.client.MongoCursor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -73,7 +69,8 @@ public class DBManagement {
         obj.add(new BasicDBObject("password", password));
         query.put("$and", obj);
 
-        Document result = collection.find(query).first();
+        FindIterable<Document> found = collection.find(query);
+        Document result = found.first();
         if (result == null) {
             return null;
         }

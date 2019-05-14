@@ -7,10 +7,7 @@ import org.bson.Document;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Base64;
+import java.util.*;
 
 import static com.mongodb.client.model.Filters.*;
 
@@ -27,7 +24,7 @@ public class DBManagement {
 
     public DBManagement(String database) {
         connect();
-        this.database = mongoClient.getDatabase(database);
+        setDatabase(database);
     }
 
     public DBManagement(){
@@ -59,6 +56,24 @@ public class DBManagement {
         }
     };
 
+    boolean usernameAlreadyExists(String username){
+        setCollection("users");
+        Document queryResult = collection.find(eq("username", username)).first();
+        if (queryResult == null)
+            return false;
+        return true;
+    }
+
+    void createNewUser(Map<String, String> userDetails) {
+        setCollection("users");
+        Document newUserDocument = new Document();
+        for (Map.Entry<String, String> entry : userDetails.entrySet()) {
+            newUserDocument.append(entry.getKey(), entry.getValue());
+        }
+        newUserDocument.append("user_id", getNextUserID());
+        collection.insertOne(newUserDocument);
+    }
+
     User verifyUserDetails(String username, String password){
         setCollection("users");
         // Debugging: collection.find().forEach(printBlock);
@@ -69,13 +84,19 @@ public class DBManagement {
         obj.add(new BasicDBObject("password", password));
         query.put("$and", obj);
 
-        FindIterable<Document> found = collection.find(query);
-        Document result = found.first();
+        Document result = collection.find(query).first();
         if (result == null) {
             return null;
         }
 
-        return new User((String) result.get("user_id"), username);
+        int user_id;
+        if (result.get("user_id").getClass() == Double.class) {
+            user_id = ((Double) result.get("user_id")).intValue();
+        }
+        else
+            user_id = (int) result.get("user_id");
+
+        return new User(user_id, username);
     }
 
     private static String getDBPW(){
@@ -96,10 +117,18 @@ public class DBManagement {
     }
 
     private void setCollection(String collectionName){
+        //TODO: if (!collectionName = collection.name)
         collection = database.getCollection(collectionName);
     }
 
     private void setDatabase(String dbName){
         this.database = mongoClient.getDatabase(dbName);
+    }
+
+    private int getNextUserID(){
+        setCollection("users");
+        Document result = collection.find().sort(new Document().append("user_id", -1)).first();
+        Double user_id = (Double) result.get("user_id");
+        return user_id.intValue();
     }
 }

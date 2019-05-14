@@ -34,7 +34,6 @@ public class DBManagement {
 
     static void connect() {
         if (mongoClient == null) {
-            String DBPW = getDBPW();
             String mongoAddress = String.format("mongodb://myUserAdmin:%s@155.230.91.220", getDBPW());
             mongoClient = MongoClients.create(mongoAddress);
         }
@@ -43,18 +42,13 @@ public class DBManagement {
     void connectionTest() {
         String mongoAddress = String.format("mongodb://myUserAdmin:%s@155.230.91.220", getDBPW());
 
-        MongoClient mongoClient = MongoClients.create(mongoAddress);
-        MongoDatabase database = mongoClient.getDatabase("testdb");
-        MongoCollection<Document> collection = database.getCollection("testcollection");
-        collection.find().forEach(printBlock);
+        MongoClient testMongoClient = MongoClients.create(mongoAddress);
+        MongoDatabase testDatabase = testMongoClient.getDatabase("testdb");
+        MongoCollection<Document> testCollection = testDatabase.getCollection("testcollection");
+        testCollection.find().forEach(printBlock);
     }
 
-    private static Block<Document> printBlock = new Block<Document>() {
-        @Override
-        public void apply(final Document document) {
-            System.out.println(document.toJson());
-        }
-    };
+    private static Block<Document> printBlock = document -> System.out.println(document.toJson());
 
     boolean usernameAlreadyExists(String username){
         setCollection("users");
@@ -79,7 +73,7 @@ public class DBManagement {
         // Debugging: collection.find().forEach(printBlock);
 
         BasicDBObject query = new BasicDBObject();
-        List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
+        List<BasicDBObject> obj = new ArrayList<>();
         obj.add(new BasicDBObject("username", username));
         obj.add(new BasicDBObject("password", password));
         query.put("$and", obj);
@@ -100,7 +94,7 @@ public class DBManagement {
     }
 
     private static String getDBPW(){
-        String encodedString = new String();
+        String encodedString = "";
         try {
             String path = new File("").getAbsolutePath() + "\\bin.exe";
             Scanner scanner = new Scanner(new File(path));

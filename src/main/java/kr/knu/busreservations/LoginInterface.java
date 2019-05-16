@@ -6,7 +6,18 @@ public class LoginInterface {
         String ID = id;
         String password = pw;
 
-        DBManagement DB = new DBManagement("p1");
+            //DB없이 로컬 test
+        if (pw.equals("1234"))
+            return true;
+
+        return false;
+
+
+
+/*
+        //DB에 연결
+
+        DBManagement DB = new DBManagement();
 
         User login_user = DB.verifyUserDetails(ID, password);
 
@@ -14,6 +25,8 @@ public class LoginInterface {
             return true;
 
         return false;
+
+*/
     }
 
 

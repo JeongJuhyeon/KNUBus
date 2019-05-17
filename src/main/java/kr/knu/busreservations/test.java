@@ -63,13 +63,16 @@ public class test {
 	}
 
 	void signup(String id, String pw, int age, String name) {
-		Map<String, String> userDetails = new HashMap<String, String>();
+
+	    DBManagement DBManagement = new DBManagement();
+	    Map<String, String> userDetails = new HashMap<String, String>();
+
 
 		userDetails.put("user_id", id);
 		userDetails.put("password", pw);
 		userDetails.put("age", Integer.toString(age));
 		userDetails.put("username", name);
-
-		createNewUser(userDetails);
+        //이 클래스의 createNewUser인듯
+		DBManagement.createNewUser(userDetails);
 	}
 }

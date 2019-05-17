@@ -1,8 +1,10 @@
+package kr.knu.busreservations;
+
 import java.util.HashMap;
-import java.util.MAP;
+import java.util.*;
 
 public class test {
-	enum SignupResult{
+	enum SignupResult {
 		IDEXISTSERROR,
 		IDFORMATERROR,
 		PWERROR,
@@ -11,61 +13,63 @@ public class test {
 		SUCCESS;
 	}
 
-	SignupResult signupDataCheck(String id, String pw, String age, String name) {
-		SignupResult sr = null;
-		dbmanagement dbmanagement= new dbmanagement();
-		boolean check = true;
-		int check_ascii;
+	SignupResult signupData(String id, String pw, int age, String name) {
+		DBManagement DBManagement = new DBManagement();
 		//id should be only alphanumeric & <= 20 characters and not exist
 		//		pw should be only ascii and >= 6, <= 30 characters
 		//		name should be only alphabetic
-		//		age //���ÿ��� Ȯ��
+		//		age //占쏙옙占시울옙占쏙옙 확占쏙옙
+
+		int check_ascii;
 		int idlen = id.length();
 		int pwlen = pw.length();
-		int agelen = age.length();
 		int namelen = name.length();
-		int ag = Integer.parseInt(age);
-		if(dbmanagement.usernameAlreadyExists(id)==true)
-			return sr.IDEXISTSERROR;
-		
-		if(idlen <= 20 && idlen >= 6) {
-			for(int i=0; i<idlen;i++) {
-					check = Character.isDigit(id.charAt(i)) || Character.isLetter(id.charAt(i));
-			}
 
-			if (check == false) return sr.IDFORMATERROR;
-		}
-		else return sr.IDFORMATERROR;//length > 20 || length < 6
-		
+		if (DBManagement.usernameAlreadyExists(id) == true)
+			return SignupResult.IDEXISTSERROR;
+
+		if (idlen <= 20 && idlen >= 6) {
+			for (int i = 0; i < idlen; i++) {
+				if (!Character.isLetterOrDigit(id.charAt(i)))
+					return SignupResult.IDFORMATERROR;
+			}
+		} else
+			return SignupResult.IDFORMATERROR;//占쏙옙占싱듸옙 占쏙옙占쏙옙 占싣닐띰옙
+
 		if(pwlen <= 30 && idlen >= 6)
 		{
 			for(int i=0; i<pwlen;i++) {
-				check_ascii = (int) pw;
+				check_ascii = (int) pw.charAt(i);
 				if (check_ascii < 0 || check_ascii > 127)
-					return sr.PWERROR;
+					return SignupResult.PWERROR;
 			}
 		}
-		else return sr.PWERROR;
-		
-		if(ag < 1)
-			return sr.AGEERROR;
-		
-		if(namelen > 20 || namelen < 6)
-			return sr.NAMEERROR;
+		else
+			return SignupResult.PWERROR;
+
+		if (age < 1)
+			return SignupResult.AGEERROR;
+
+		if (namelen > 20 || idlen < 6)
+			return SignupResult.NAMEERROR;
 		else {
 			for(int i=0; i<namelen;i++)
-					check = Character.isDigit(name.charAt(i)) || Character.isLetter(name.charAt(i));
-			if (check == false) return sr.NAMEERROR;
+				if (!Character.isLetterOrDigit(name.charAt(i)))
+					return SignupResult.NAMEERROR;
 		}
 
 		signup(id, pw, age, name);
-		return sr.SUCCESS;
+		return SignupResult.SUCCESS;
 	}
 
-	boolean signup(String id, String pw, String age, String name) {
-		Map<Sring, String>;
+	void signup(String id, String pw, int age, String name) {
+		Map<String, String> userDetails = new HashMap<String, String>();
 
-		return createNewUser(Map<id, pw>);
+		userDetails.put("user_id", id);
+		userDetails.put("password", pw);
+		userDetails.put("age", Integer.toString(age));
+		userDetails.put("username", name);
 
+		createNewUser(userDetails);
 	}
 }

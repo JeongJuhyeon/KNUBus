@@ -1,10 +1,6 @@
 package kr.knu.busreservations;
 
-import com.mongodb.Block;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -16,8 +12,6 @@ import org.mockito.MockitoAnnotations;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
-import static org.mockito.Mockito.*;
 
 public class DBManagementTest {
     private static DBManagement dBManagement;

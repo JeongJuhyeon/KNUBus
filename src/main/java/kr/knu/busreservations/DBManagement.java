@@ -12,9 +12,11 @@ import java.util.*;
 import static com.mongodb.client.model.Filters.*;
 
 public class DBManagement {
+    public static final String ID_KEY = "user_id";
     private static MongoClient mongoClient = null;
     private MongoDatabase database;
     private MongoCollection<Document> collection;
+    private static final String USERS_COLLECTION = "users";
 
     public static void main(String[] args) {
         DBManagement dbManagement = new DBManagement();
@@ -51,7 +53,7 @@ public class DBManagement {
     private static Block<Document> printBlock = document -> System.out.println(document.toJson());
 
     boolean usernameAlreadyExists(String username){
-        setCollection("users");
+        setCollection(USERS_COLLECTION);
         Document queryResult = collection.find(eq("username", username)).first();
         if (queryResult == null)
             return false;
@@ -59,7 +61,7 @@ public class DBManagement {
     }
 
     void createNewUser(Map<String, String> userDetails) {
-        setCollection("users");
+        setCollection(USERS_COLLECTION);
         Document newUserDocument = new Document();
         for (Map.Entry<String, String> entry : userDetails.entrySet()) {
             newUserDocument.append(entry.getKey(), entry.getValue());
@@ -69,7 +71,7 @@ public class DBManagement {
     }
 
     User verifyUserDetails(String username, String password){
-        setCollection("users");
+        setCollection(USERS_COLLECTION);
         // Debugging: collection.find().forEach(printBlock);
 
         BasicDBObject query = new BasicDBObject();
@@ -88,7 +90,7 @@ public class DBManagement {
             user_id = ((Double) result.get("user_id")).intValue();
         }
         else
-            user_id = (int) result.get("user_id");
+            user_id = (int) result.get(ID_KEY);
 
         return new User(user_id, username);
     }
@@ -120,7 +122,7 @@ public class DBManagement {
     }
 
     private int getNextUserID(){
-        setCollection("users");
+        setCollection(USERS_COLLECTION);
         Document result = collection.find().sort(new Document().append("user_id", -1)).first();
         Double user_id = (Double) result.get("user_id");
         return user_id.intValue();

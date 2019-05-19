@@ -3,7 +3,7 @@ package kr.knu.busreservations;
 import java.util.HashMap;
 import java.util.*;
 
-public class test {
+public class SignupCheck {
 	enum SignupResult {
 		IDEXISTSERROR,
 		IDFORMATERROR,
@@ -14,7 +14,7 @@ public class test {
 	}
 
 	SignupResult signupData(String id, String pw, int age, String name) {
-		DBManagement DBManagement = new DBManagement();
+		DBManagement dbManagement = new DBManagement();
 		//id should be only alphanumeric & <= 20 characters and not exist
 		//		pw should be only ascii and >= 6, <= 30 characters
 		//		name should be only alphabetic
@@ -25,7 +25,7 @@ public class test {
 		int pwlen = pw.length();
 		int namelen = name.length();
 
-		if (DBManagement.usernameAlreadyExists(id) == true)
+		if (dbManagement.usernameAlreadyExists(id) == true)
 			return SignupResult.IDEXISTSERROR;
 
 		if (idlen <= 20 && idlen >= 6) {
@@ -64,15 +64,15 @@ public class test {
 
 	void signup(String id, String pw, int age, String name) {
 
-	    DBManagement DBManagement = new DBManagement();
+	    DBManagement dbManagement = new DBManagement();
 	    Map<String, String> userDetails = new HashMap<String, String>();
 
 
-		userDetails.put("user_id", id);
-		userDetails.put("password", pw);
+		userDetails.put("id", id);
+		userDetails.put("pw", pw);
 		userDetails.put("age", Integer.toString(age));
-		userDetails.put("username", name);
+		userDetails.put("name", name);
         //이 클래스의 createNewUser인듯
-		DBManagement.createNewUser(userDetails);
+		dbManagement.createNewUser(userDetails);
 	}
 }

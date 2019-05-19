@@ -68,8 +68,8 @@ public class SignupCheck {
 	    Map<String, String> userDetails = new HashMap<String, String>();
 
 
-		userDetails.put("id", id);
-		userDetails.put("pw", pw);
+		userDetails.put("username", id);
+		userDetails.put("password", pw);
 		userDetails.put("age", Integer.toString(age));
 		userDetails.put("name", name);
         //이 클래스의 createNewUser인듯

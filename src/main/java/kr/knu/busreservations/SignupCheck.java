@@ -36,7 +36,7 @@ public class SignupCheck {
             return SignupResult.IDEXISTSERROR;
 
         if (idlen <= 20 && idlen >= 6) {
-            for (int i = 0; i < idlen; i++) {
+            for (int i = 0; i < idlen-1; i++) {
                 if (!Character.isLetterOrDigit(id.charAt(i))) {
                     return SignupResult.IDFORMATERROR;
                 }

@@ -72,6 +72,23 @@ public class UI extends Application {
         primaryStage.setScene(new Scene(root, 381, 233));
         primaryStage.show();
         DBManagement.connect();
+
+
+
+        //SignUp Test
+        SignupCheck SignUp = new SignupCheck();
+        SignUp.signup("test1234", "123456", 20, "Test");
+        System.out.println("수행되었음");
+        // Login Test
+        /*
+        LoginInterface Login = new LoginInterface();
+
+
+        if(Login.login("messi", "1234"))
+            LoginIsSuccess.setText("Success");
+        else
+            LoginIsSuccess.setText("Failure");
+        */
     }
 
 
@@ -116,7 +133,6 @@ public class UI extends Application {
         SignupCheck SignUp = new SignupCheck();
 
         SignUp.SignupResult=SignUp.signupData(signUpId.getText(), signUpPw.getText(),Integer.parseInt(ageField.getText()), signUpName.getText());
-
 
         //SignupData의 반환값이 성공일때만 아닐때는 일단 출력
 

@@ -6,7 +6,7 @@ import java.util.*;
 public class SignupCheck {
     DBManagement dbManagement;
 
-    enum SignupResult {
+   enum SignupResult {
         IDEXISTSERROR,
         IDFORMATERROR,
         PWERROR,
@@ -14,6 +14,8 @@ public class SignupCheck {
         NAMEERROR,
         SUCCESS;
     }
+
+    SignupResult SignupResult;
 
     public SignupCheck() {
         this.dbManagement = new DBManagement();
@@ -35,8 +37,9 @@ public class SignupCheck {
 
         if (idlen <= 20 && idlen >= 6) {
             for (int i = 0; i < idlen; i++) {
-                if (!Character.isLetterOrDigit(id.charAt(i)))
+                if (!Character.isLetterOrDigit(id.charAt(i))) {
                     return SignupResult.IDFORMATERROR;
+                }
             }
         } else
             return SignupResult.IDFORMATERROR;//占쏙옙占싱듸옙 占쏙옙占쏙옙 占싣닐띰옙

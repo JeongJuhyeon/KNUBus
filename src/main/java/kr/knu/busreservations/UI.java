@@ -2,30 +2,67 @@ package kr.knu.busreservations;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.ResourceBundle;
+
+import static kr.knu.busreservations.SignupCheck.SignupResult.SUCCESS;
 
 
 public class UI extends Application {
 
+    @FXML
     public TextField id;
+    @FXML
     public TextField pw;
+    @FXML
     public TextField LoginIsSuccess;
+    @FXML
+    public TextField signUpId;
+    @FXML
+    public TextField signUpPw;
+    @FXML
+    public TextField signUpName;
+    @FXML
+    public TextField SignUpSuccess;
+    @FXML
+    private DatePicker dateofBirth;
+    @FXML
+    private TextField ageField;
+
+    @FXML
+    private void showAge(){
+        Calendar now = Calendar.getInstance();
+        int year = now.get(Calendar.YEAR);
+        int birthYear = (dateofBirth.getValue().getYear());
+        int age = year - birthYear + 1;
+        ageField.setText(Integer.toString(age));
+
+    }
+
     //로그인 성공 실패 창띄우려고 만든 변수
     public Label lblStatus;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("Login.fxml");
-        if (url == null)
-        {
+        if (url == null) {
             System.out.println("Can't load FXML file");
             Platform.exit();
         }
@@ -37,21 +74,14 @@ public class UI extends Application {
         DBManagement.connect();
     }
 
-    public void Exit()
-    {
-        Platform.exit();
-    }
 
-    public void Login() throws Exception
-    {
+    public void Login() throws Exception {
 
         LoginInterface Login = new LoginInterface();
-        if(Login.login(id.getText(), pw.getText()))
-        {
+        if (Login.login(id.getText(), pw.getText())) {
             LoginIsSuccess.setText("Success");
 
-        }
-        else
+        } else
             LoginIsSuccess.setText("Failure");
 
         /*
@@ -63,6 +93,48 @@ public class UI extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     */
+
+    }
+
+    public void SignUpUI() throws Exception
+        {
+            Stage primaryStage = new Stage();
+            URL url = getClass().getResource("SignUp.fxml");
+            if (url == null) {
+                System.out.println("Can't load FXML file");
+                Platform.exit();
+            }
+
+            Parent root = FXMLLoader.load(url);
+           primaryStage.setScene(new Scene(root, 381, 400));
+            primaryStage.show();
+
+
+
+        }
+    public void SignUp(){
+        SignupCheck SignUp = new SignupCheck();
+
+        SignUp.SignupResult=SignUp.signupData(signUpId.getText(), signUpPw.getText(),Integer.parseInt(ageField.getText()), signUpName.getText());
+
+
+        //SignupData의 반환값이 성공일때만 아닐때는 일단 출력
+
+        switch(SignUp.SignupResult) {
+            case SUCCESS:
+                SignUp.signup(signUpId.getText(), signUpPw.getText(), Integer.parseInt(ageField.getText()), signUpName.getText());
+                SignUpSuccess.setText("Welcome join");
+            case AGEERROR:
+                SignUpSuccess.setText("wrong Age");
+            case NAMEERROR:
+                SignUpSuccess.setText("wrong Name");
+            case PWERROR:
+                SignUpSuccess.setText("wrong Password");
+            case IDEXISTSERROR:
+                SignUpSuccess.setText("Exist ID");
+            case IDFORMATERROR:
+                SignUpSuccess.setText("wrong ID format");
+        }
 
     }
 
@@ -84,4 +156,5 @@ public class UI extends Application {
 
     */
 
-}
+    }
+

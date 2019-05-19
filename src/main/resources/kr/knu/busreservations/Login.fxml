@@ -6,15 +6,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-  <AnchorPane prefHeight="233.0" prefWidth="381.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kr.knu.busreservations.UI">
+<AnchorPane prefHeight="233.0" prefWidth="381.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kr.knu.busreservations.UI">
       <children>
           <Label layoutX="89.0" layoutY="58.0" text="ID" />
           <Label layoutX="63.0" layoutY="105.0" text="PASSWORD" />
-          <PasswordField fx:id="pw" layoutX="179.0" layoutY="101.0" />
           <TextField fx:id="id" layoutX="179.0" layoutY="54.0" />
-          <Button layoutX="106.0" layoutY="169.0" mnemonicParsing="false" onAction="#Login" text="Login" />
-          <Button layoutX="241.0" layoutY="169.0" mnemonicParsing="false" onAction="#Exit" text="Exit" />
-      <TextField fx:id="LoginIsSuccess" editable="false" layoutX="110.0" layoutY="134.0" />
+          <Button layoutX="106.0" layoutY="191.0" mnemonicParsing="false" onAction="#Login" text="Login" />
+      <Button layoutX="231.0" layoutY="191.0" mnemonicParsing="false" onAction="#SignUpUI" text="Sign Up" />
+      <PasswordField fx:id="pw" layoutX="179.0" layoutY="101.0" />
+      <TextField fx:id="LoginIsSuccess" editable="false" layoutX="110.0" layoutY="147.0" />
       </children>
   </AnchorPane>

@@ -113,8 +113,8 @@ public class DBManagement {
     }
 
     private void setCollection(String collectionName){
-        //TODO: if (!collectionName = collection.name)
-        collection = database.getCollection(collectionName);
+        if (collection == null || !collection.getNamespace().getCollectionName().equals(collectionName))
+            collection = database.getCollection(collectionName);
     }
 
     private void setDatabase(String dbName){

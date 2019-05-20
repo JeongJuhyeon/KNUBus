@@ -32,17 +32,13 @@ public class SignupCheck {
         int pwlen = pw.length();
         int namelen = name.length();
 
-        if (dbManagement.usernameAlreadyExists(id))
-            return signupResult.IDEXISTSERROR;
+        if (id.length() < 1 || id.length() > 20)
+            return signupResult.IDFORMATERROR;
 
-        if (idlen <= 20 && idlen >= 6) {
-            for (int i = 0; i < idlen; i++) {
-                if (!Character.isLetterOrDigit(id.charAt(i))) {
-                    return signupResult.IDFORMATERROR;
-                }
-            }
-        } else
-            return signupResult.IDFORMATERROR;//占쏙옙占싱듸옙 占쏙옙占쏙옙 占싣닐띰옙
+        if (id.chars().anyMatch(n -> !Character.isLetterOrDigit(n)))
+            return signupResult.IDFORMATERROR;
+        if (id.chars().anyMatch(n-> Character.UnicodeBlock.of(n) != Character.UnicodeBlock.BASIC_LATIN))
+            return signupResult.IDFORMATERROR;
 
         if (pwlen <= 30 && pwlen >= 6) {
             for (int i = 0; i < pwlen; i++) {
@@ -56,13 +52,19 @@ public class SignupCheck {
         if (age < 1)
             return signupResult.AGEERROR;
 
-        if (namelen > 100 || namelen < 1)
+        if (namelen > 50 || namelen < 2)
             return signupResult.NAMEERROR;
         else {
-            for (int i = 0; i < namelen; i++)
-                if (!Character.isLetter(name.charAt(i)))
-                    return signupResult.NAMEERROR;
+            if (name.chars().anyMatch(n -> !Character.isLetter(n) && !Character.isSpaceChar(n)))
+                return signupResult.NAMEERROR;
+            boolean all_latin = name.chars().allMatch(n -> Character.UnicodeBlock.of(n) == Character.UnicodeBlock.BASIC_LATIN);
+            boolean all_hangul = name.chars().allMatch(n -> Character.UnicodeBlock.of(n) == Character.UnicodeBlock.HANGUL_SYLLABLES);
+            if (!all_latin && !all_hangul)
+                return signupResult.NAMEERROR;
         }
+
+        if (dbManagement.usernameAlreadyExists(id))
+            return signupResult.IDEXISTSERROR;
 
         signup(id, pw, age, name);
         return signupResult.SUCCESS;

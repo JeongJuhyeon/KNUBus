@@ -15,7 +15,7 @@ public class SignupCheck {
         SUCCESS;
     }
 
-    SignupResult SignupResult;
+    SignupResult signupResult;
 
     public SignupCheck() {
         this.dbManagement = new DBManagement();
@@ -33,39 +33,39 @@ public class SignupCheck {
         int namelen = name.length();
 
         if (dbManagement.usernameAlreadyExists(id))
-            return SignupResult.IDEXISTSERROR;
+            return signupResult.IDEXISTSERROR;
 
         if (idlen <= 20 && idlen >= 6) {
             for (int i = 0; i < idlen; i++) {
                 if (!Character.isLetterOrDigit(id.charAt(i))) {
-                    return SignupResult.IDFORMATERROR;
+                    return signupResult.IDFORMATERROR;
                 }
             }
         } else
-            return SignupResult.IDFORMATERROR;//占쏙옙占싱듸옙 占쏙옙占쏙옙 占싣닐띰옙
+            return signupResult.IDFORMATERROR;//占쏙옙占싱듸옙 占쏙옙占쏙옙 占싣닐띰옙
 
         if (pwlen <= 30 && pwlen >= 6) {
             for (int i = 0; i < pwlen; i++) {
                 check_ascii = (int) pw.charAt(i);
                 if (check_ascii < 0 || check_ascii > 127)
-                    return SignupResult.PWERROR;
+                    return signupResult.PWERROR;
             }
         } else
-            return SignupResult.PWERROR;
+            return signupResult.PWERROR;
 
         if (age < 1)
-            return SignupResult.AGEERROR;
+            return signupResult.AGEERROR;
 
-        if (namelen > 20 || namelen < 6)
-            return SignupResult.NAMEERROR;
+        if (namelen > 100 || namelen < 1)
+            return signupResult.NAMEERROR;
         else {
             for (int i = 0; i < namelen; i++)
-                if (!Character.isLetterOrDigit(name.charAt(i)))
-                    return SignupResult.NAMEERROR;
+                if (!Character.isLetter(name.charAt(i)))
+                    return signupResult.NAMEERROR;
         }
 
         signup(id, pw, age, name);
-        return SignupResult.SUCCESS;
+        return signupResult.SUCCESS;
     }
 
     void signup(String id, String pw, int age, String name) {

@@ -30,6 +30,15 @@ public class SignupCheckTest {
     public void testSignupData() throws Exception {
         when(dBManagement.usernameAlreadyExists("existingid")).thenReturn(true);
         when(dBManagement.usernameAlreadyExists("abcabcd")).thenReturn(false);
+        when(dBManagement.usernameAlreadyExists("short")).thenReturn(false);
+        when(dBManagement.usernameAlreadyExists("regula")).thenReturn(false);
+        when(dBManagement.usernameAlreadyExists("tooooooooooooooolong")).thenReturn(false);
+        when(dBManagement.usernameAlreadyExists("toooooooooooooooolong")).thenReturn(false);
+        when(dBManagement.usernameAlreadyExists("regular_id")).thenReturn(false);
+        when(dBManagement.usernameAlreadyExists("regularid00")).thenReturn(false);
+        when(dBManagement.usernameAlreadyExists("RegularId")).thenReturn(false);
+        when(dBManagement.usernameAlreadyExists("regularidㄱ")).thenReturn(false);
+        
         SignupCheck.SignupResult result;
 
         result = signupCheck.signupData("regularid", "regularpw", 15, "regularname");
@@ -67,7 +76,7 @@ public class SignupCheckTest {
         result = signupCheck.signupData("RegularId", "regularpw", 15, "regularname");
         Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // regular but Upper id
         result = signupCheck.signupData("regularidㄱ", "regularpw", 15, "regularname");
-        Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // not ascii id ******need to check
+        Assert.assertEquals(SignupCheck.SignupResult.IDFORMATERROR, result); // not ascii id ******need to check
 
         result = signupCheck.signupData("regularid", "short", 15, "regularname");
         Assert.assertEquals(SignupCheck.SignupResult.PWERROR, result); // short password
@@ -103,7 +112,8 @@ public class SignupCheckTest {
         Assert.assertEquals(SignupCheck.SignupResult.NAMEERROR, result); // regular + number name
         result = signupCheck.signupData("regularid", "regularpw", 15, "RegularName");
         Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // regular but Upper name
-        result = signupCheck.signupData("regularidㄱ", "regularpw", 15, "regularnameㄱ");
+        result = signupCheck.signupData("regularid", "regularpw", 15, "regularnameㄱ");
+        Assert.assertEquals(SignupCheck.SignupResult.NAMEERROR, result); // not ascii name ******need to check
     }
 
     @Test

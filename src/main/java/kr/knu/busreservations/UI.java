@@ -132,11 +132,11 @@ public class UI extends Application {
     public void SignUp(){
         SignupCheck SignUp = new SignupCheck();
 
-        SignUp.SignupResult=SignUp.signupData(signUpId.getText(), signUpPw.getText(),Integer.parseInt(ageField.getText()), signUpName.getText());
+        SignUp.signupResult=SignUp.signupData(signUpId.getText(), signUpPw.getText(),Integer.parseInt(ageField.getText()), signUpName.getText());
 
         //SignupData의 반환값이 성공일때만 아닐때는 일단 출력
 
-        switch(SignUp.SignupResult) {
+        switch(SignUp.signupResult) {
             case SUCCESS:
                 SignUp.signup(signUpId.getText(), signUpPw.getText(), Integer.parseInt(ageField.getText()), signUpName.getText());
                 SignUpSuccess.setText("Welcome join");

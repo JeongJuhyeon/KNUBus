@@ -89,13 +89,13 @@ public class SignupCheckTest {
         result = signupCheck.signupData("regularid", "regularpw99", 15, "regularname");
         Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // regular + number password
         result = signupCheck.signupData("regularid", "regularpw_", 15, "regularname");
-        Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // regular + character password
+        Assert.assertEquals(SignupCheck.SignupResult.PWERROR, result); // regular + character password
         result = signupCheck.signupData("regularid", "RegularPw", 15, "regularname");
         Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // regular but Upper password
         result = signupCheck.signupData("regularid", "regularpwㄱ", 15, "regularname");
         Assert.assertEquals(SignupCheck.SignupResult.PWERROR, result); // not ascii password
         result = signupCheck.signupData("regularid", "regularpw ", 15, "regularname");
-        Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // regular + blank password
+        Assert.assertEquals(SignupCheck.SignupResult.PWERROR, result); // regular + blank password
 
         result = signupCheck.signupData("regularid", "regularpw", 0, "regularname");
         Assert.assertEquals(SignupCheck.SignupResult.AGEERROR, result); // low age
@@ -120,6 +120,12 @@ public class SignupCheckTest {
         Assert.assertEquals(SignupCheck.SignupResult.NAMEERROR, result); // not ascii name
         result = signupCheck.signupData("regularid", "regularpw", 15, "regularname ");
         Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // regular + blank name
+        result = signupCheck.signupData("regularid", "regularpw", 15, "regular박name");
+        Assert.assertEquals(SignupCheck.SignupResult.NAMEERROR, result); // English + Korean name
+        result = signupCheck.signupData("regularid", "regularpw", 15, "박지성");
+        Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // only Korean name
+        result = signupCheck.signupData("regularid", "regularpw", 15, "박ㅈ지성");
+        Assert.assertEquals(SignupCheck.SignupResult.NAMEERROR, result); // Korean name with little error
 
         // TODO: Etc add a lot more tests, to correspond to each condition
     }

@@ -33,11 +33,11 @@ public class SignupCheckTest {
         when(dBManagement.usernameAlreadyExists("regularid")).thenReturn(false);
         when(dBManagement.usernameAlreadyExists("s")).thenReturn(false);
         when(dBManagement.usernameAlreadyExists("tooooooooooooooolong")).thenReturn(false);
-        when(dBManagement.usernameAlreadyExists("toooooooooooooooolong")).thenReturn(false);
-        when(dBManagement.usernameAlreadyExists("regular_id")).thenReturn(false);
+        //when(dBManagement.usernameAlreadyExists("toooooooooooooooolong")).thenReturn(false);
+        //when(dBManagement.usernameAlreadyExists("regular_id")).thenReturn(false);
         when(dBManagement.usernameAlreadyExists("regularid00")).thenReturn(false);
         when(dBManagement.usernameAlreadyExists("RegularId")).thenReturn(false);
-        when(dBManagement.usernameAlreadyExists("regularidㄱ")).thenReturn(false);
+        //when(dBManagement.usernameAlreadyExists("regularidㄱ")).thenReturn(false);
 
         SignupCheck.SignupResult result;
 
@@ -89,7 +89,7 @@ public class SignupCheckTest {
         result = signupCheck.signupData("regularid", "regularpw99", 15, "regularname");
         Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // regular + number password
         result = signupCheck.signupData("regularid", "regularpw_", 15, "regularname");
-        Assert.assertEquals(SignupCheck.SignupResult.PWERROR, result); // regular + character password
+        Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // regular + character password
         result = signupCheck.signupData("regularid", "RegularPw", 15, "regularname");
         Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // regular but Upper password
         result = signupCheck.signupData("regularid", "regularpwㄱ", 15, "regularname");
@@ -126,8 +126,6 @@ public class SignupCheckTest {
         Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // only Korean name
         result = signupCheck.signupData("regularid", "regularpw", 15, "박ㅈ지성");
         Assert.assertEquals(SignupCheck.SignupResult.NAMEERROR, result); // Korean name with little error
-
-        // TODO: Etc add a lot more tests, to correspond to each condition
     }
 
     @Test

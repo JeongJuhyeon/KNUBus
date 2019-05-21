@@ -43,7 +43,7 @@ public class SignupCheck {
         if (pwlen <= 30 && pwlen >= 6) {
             for (int i = 0; i < pwlen; i++) {
                 check_ascii = (int) pw.charAt(i);
-                if (check_ascii < 0 || check_ascii > 127)
+                if (check_ascii < 33 || check_ascii > 126)
                     return signupResult.PWERROR;
             }
         } else

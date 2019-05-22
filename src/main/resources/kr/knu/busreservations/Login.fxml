@@ -11,9 +11,9 @@
           <Label layoutX="89.0" layoutY="58.0" text="ID" />
           <Label layoutX="63.0" layoutY="105.0" text="PASSWORD" />
           <TextField fx:id="id" layoutX="179.0" layoutY="54.0" />
+      <PasswordField fx:id="pw" layoutX="179.0" layoutY="101.0" />
           <Button layoutX="106.0" layoutY="191.0" mnemonicParsing="false" onAction="#Login" text="Login" />
       <Button layoutX="231.0" layoutY="191.0" mnemonicParsing="false" onAction="#SignUpUI" text="Sign Up" />
-      <PasswordField fx:id="pw" layoutX="179.0" layoutY="101.0" />
-      <TextField fx:id="LoginIsSuccess" editable="false" layoutX="110.0" layoutY="147.0" />
+      <TextField fx:id="LoginIsSuccess" alignment="CENTER" editable="false" layoutX="110.0" layoutY="151.0" style="-fx-background-color: 244,244,244;" />
       </children>
   </AnchorPane>

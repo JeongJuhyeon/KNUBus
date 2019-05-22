@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.Calendar;
@@ -28,23 +29,28 @@ import static kr.knu.busreservations.SignupCheck.SignupResult.SUCCESS;
 public class UI extends Application {
 
     @FXML
-    public TextField id;
+    public TextField id=new TextField();
     @FXML
-    public TextField pw;
+    public TextField pw=new TextField();
+
     @FXML
-    public TextField LoginIsSuccess;
+    private TextField LoginIsSuccess=new TextField();
+
     @FXML
-    public TextField signUpId;
+    public TextField signUpId=new TextField();
     @FXML
-    public TextField signUpPw;
+    public TextField signUpPw=new TextField();
     @FXML
-    public TextField signUpName;
-    @FXML
-    public TextField SignUpSuccess;
+    public TextField signUpName=new TextField();
     @FXML
     private DatePicker dateofBirth;
     @FXML
-    private TextField ageField;
+    private TextField ageField=new TextField();
+    @FXML
+    private TextField SignUpIsSuccess=new TextField();
+
+    @FXML
+    private TextField SignUpHelp=new TextField();
 
     @FXML
     private void showAge(){
@@ -74,11 +80,13 @@ public class UI extends Application {
         DBManagement.connect();
 
 
-
+        /*
         //SignUp Test
         SignupCheck SignUp = new SignupCheck();
         SignUp.signup("test1234", "123456", 20, "Test");
         System.out.println("수행되었음");
+        */
+
         // Login Test
         /*
         LoginInterface Login = new LoginInterface();
@@ -97,10 +105,12 @@ public class UI extends Application {
         LoginInterface Login = new LoginInterface();
         if (Login.login(id.getText(), pw.getText())) {
             LoginIsSuccess.setText("Success");
+            LoginSuccess();
 
-        } else
+        } else {
             LoginIsSuccess.setText("Failure");
-
+            LoginSuccess();
+        }
         /*
         // 창 새로 띄워서 하고 싶은데, 일단 보류
         Parent loginLoot = FXMLLoader.load(getClass().getResource("LoginIsSuccess.fxml"));
@@ -123,37 +133,117 @@ public class UI extends Application {
             }
 
             Parent root = FXMLLoader.load(url);
-           primaryStage.setScene(new Scene(root, 381, 400));
+           primaryStage.setScene(new Scene(root, 365, 382));
             primaryStage.show();
 
 
 
         }
-    public void SignUp(){
+    public void SignUp() throws Exception {
         SignupCheck SignUp = new SignupCheck();
 
         SignUp.signupResult=SignUp.signupData(signUpId.getText(), signUpPw.getText(),Integer.parseInt(ageField.getText()), signUpName.getText());
 
+
         //SignupData의 반환값이 성공일때만 아닐때는 일단 출력
 
         switch(SignUp.signupResult) {
-            case SUCCESS:
+            case SUCCESS: {
                 SignUp.signup(signUpId.getText(), signUpPw.getText(), Integer.parseInt(ageField.getText()), signUpName.getText());
-                SignUpSuccess.setText("Welcome join");
-            case AGEERROR:
-                SignUpSuccess.setText("wrong Age");
-            case NAMEERROR:
-                SignUpSuccess.setText("wrong Name");
-            case PWERROR:
-                SignUpSuccess.setText("wrong Password");
-            case IDEXISTSERROR:
-                SignUpSuccess.setText("Exist ID");
-            case IDFORMATERROR:
-                SignUpSuccess.setText("wrong ID format");
+                SignUpIsSuccess.setText("Welcome");
+                SignUpSuccess();
+            }
+                break;
+            case AGEERROR: {
+                SignUpIsSuccess.setText("Wrong Age");
+                SignUpSuccess();
+            }
+                break;
+            case NAMEERROR:{
+                SignUpIsSuccess.setText("Wrong Name");
+                SignUpSuccess();
+            }
+                break;
+            case PWERROR:{
+                SignUpIsSuccess.setText("Wrong Password");
+                SignUpSuccess();
+            }
+                break;
+            case IDEXISTSERROR: {
+                SignUpIsSuccess.setText("Exist ID");
+                SignUpSuccess();
+            }
+                break;
+            case IDFORMATERROR: {
+                SignUpIsSuccess.setText("Wrong ID Format");
+                SignUpSuccess();
+            }
+                break;
         }
 
     }
 
+
+    public void SignUpSuccess() throws Exception
+    {
+        Stage primaryStage = new Stage();
+        URL url = getClass().getResource("SignUpSuccess.fxml");
+        if (url == null) {
+            System.out.println("Can't load FXML file");
+            Platform.exit();
+        }
+
+        Parent root = FXMLLoader.load(url);
+        primaryStage.setScene(new Scene(root, 386, 386));
+        primaryStage.show();
+
+
+
+
+        switch(SignUpIsSuccess.getText()) {
+            case "Welcome":
+                SignUpHelp.setText("You can enjoy our service!");
+                break;
+            case "Wrong Age":
+                SignUpHelp.setText("Age is wrong, it should be over 1 year old");
+                break;
+            case "Wrong Name":
+                SignUpHelp.setText("Name is wrong, it shoud be ~~");
+                break;
+            case "Wrong Password":
+                SignUpHelp.setText("Password is wrong, it should be ~~");
+                break;
+            case "Exist ID":
+                SignUpHelp.setText("You tried ID that already exists. Please try other one.");
+                break;
+            case "Wrong ID Format":
+                SignUpHelp.setText("ID Format is wrong. it should be ~~");
+                break;
+        }
+
+
+
+
+
+    }
+
+    public void LoginSuccess() throws Exception
+    {
+        Stage primaryStage = new Stage();
+        URL url = getClass().getResource("LoginIsSuccess.fxml");
+        if (url == null) {
+            System.out.println("Can't load FXML file");
+            Platform.exit();
+        }
+
+        Parent root = FXMLLoader.load(url);
+        primaryStage.setScene(new Scene(root, 255, 93));
+        primaryStage.show();
+
+
+
+
+    }
 
 
 

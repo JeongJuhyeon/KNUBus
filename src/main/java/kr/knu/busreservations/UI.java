@@ -105,11 +105,11 @@ public class UI extends Application {
         LoginInterface Login = new LoginInterface();
         if (Login.login(id.getText(), pw.getText())) {
             LoginIsSuccess.setText("Success");
-            LoginSuccess();
+
 
         } else {
             LoginIsSuccess.setText("Failure");
-            LoginSuccess();
+
         }
         /*
         // 창 새로 띄워서 하고 싶은데, 일단 보류
@@ -151,32 +151,38 @@ public class UI extends Application {
             case SUCCESS: {
                 SignUp.signup(signUpId.getText(), signUpPw.getText(), Integer.parseInt(ageField.getText()), signUpName.getText());
                 SignUpIsSuccess.setText("Welcome");
-                SignUpSuccess();
+                SignUpHelp.setText("You can enjoy our service!");
+
             }
                 break;
             case AGEERROR: {
                 SignUpIsSuccess.setText("Wrong Age");
-                SignUpSuccess();
+                SignUpHelp.setText("Age is wrong, it should be over 1 year old");
+
             }
                 break;
             case NAMEERROR:{
                 SignUpIsSuccess.setText("Wrong Name");
-                SignUpSuccess();
+                SignUpHelp.setText("Name is wrong, it shoud be ~~");
+
             }
                 break;
             case PWERROR:{
                 SignUpIsSuccess.setText("Wrong Password");
-                SignUpSuccess();
+                SignUpHelp.setText("Password is wrong, it should be ~~");
+
             }
                 break;
             case IDEXISTSERROR: {
                 SignUpIsSuccess.setText("Exist ID");
-                SignUpSuccess();
+                SignUpHelp.setText("You tried ID that already exists. Please try other one.");
+
             }
                 break;
             case IDFORMATERROR: {
                 SignUpIsSuccess.setText("Wrong ID Format");
-                SignUpSuccess();
+                SignUpHelp.setText("ID Format is wrong. it should be ~~");
+
             }
                 break;
         }
@@ -184,66 +190,6 @@ public class UI extends Application {
     }
 
 
-    public void SignUpSuccess() throws Exception
-    {
-        Stage primaryStage = new Stage();
-        URL url = getClass().getResource("SignUpSuccess.fxml");
-        if (url == null) {
-            System.out.println("Can't load FXML file");
-            Platform.exit();
-        }
-
-        Parent root = FXMLLoader.load(url);
-        primaryStage.setScene(new Scene(root, 386, 386));
-        primaryStage.show();
-
-
-
-
-        switch(SignUpIsSuccess.getText()) {
-            case "Welcome":
-                SignUpHelp.setText("You can enjoy our service!");
-                break;
-            case "Wrong Age":
-                SignUpHelp.setText("Age is wrong, it should be over 1 year old");
-                break;
-            case "Wrong Name":
-                SignUpHelp.setText("Name is wrong, it shoud be ~~");
-                break;
-            case "Wrong Password":
-                SignUpHelp.setText("Password is wrong, it should be ~~");
-                break;
-            case "Exist ID":
-                SignUpHelp.setText("You tried ID that already exists. Please try other one.");
-                break;
-            case "Wrong ID Format":
-                SignUpHelp.setText("ID Format is wrong. it should be ~~");
-                break;
-        }
-
-
-
-
-
-    }
-
-    public void LoginSuccess() throws Exception
-    {
-        Stage primaryStage = new Stage();
-        URL url = getClass().getResource("LoginIsSuccess.fxml");
-        if (url == null) {
-            System.out.println("Can't load FXML file");
-            Platform.exit();
-        }
-
-        Parent root = FXMLLoader.load(url);
-        primaryStage.setScene(new Scene(root, 255, 93));
-        primaryStage.show();
-
-
-
-
-    }
 
 
 

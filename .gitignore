@@ -92,4 +92,6 @@ target/
 
 \.idea/misc\.xml
 
+bin\.exe
+
 \.idea/compiler\.xml

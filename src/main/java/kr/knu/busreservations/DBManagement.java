@@ -59,8 +59,8 @@ public class DBManagement {
         MongoCollection<Document> testCollection = testDatabase.getCollection("testcollection");
         testCollection.find().forEach(printBlock);
 
-        insertTerminalsIntoDB("testdb");
-        insertBusIntoDB("testdb");
+        insertTerminalsIntoDB("p3");
+        insertBusIntoDB("p3");
     }
 
     private static Block<Document> printBlock = document -> System.out.println(document.toJson());
@@ -240,7 +240,7 @@ public class DBManagement {
         Document newBusDocument = new Document();
         newBusDocument.append("id", 1);
         newBusDocument.append("startTerminalId", 1);
-        newBusDocument.append("endTerminalID", 2);
+        newBusDocument.append("endTerminalId", 2);
         newBusDocument.append("seats", seatObjects);
 
         collection.insertOne(newBusDocument);

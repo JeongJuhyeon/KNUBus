@@ -5,13 +5,14 @@ import java.util.List;
 
 public class Bus {
     int id;
-    List seat = new ArrayList<Seat>();
+    List seats;
     Terminal startTerminal;
     Terminal endTerminal;
 
-    Bus(List seat, Terminal startTerminal, Terminal endTerminal)
+    Bus(int id, List seats, Terminal startTerminal, Terminal endTerminal)
     {
-        this.seat = seat;
+        this.id = id;
+        this.seats = seats;
         this.startTerminal = startTerminal;
         this.endTerminal = endTerminal;
     }

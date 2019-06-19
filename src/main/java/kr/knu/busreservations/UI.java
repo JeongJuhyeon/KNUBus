@@ -27,10 +27,10 @@ public class UI extends Application {
 
 
     @FXML
-    private TextField UI_Search_Start_Terminal=new TextField();
+    private TextField uiSearchStartTerminal=new TextField();
 
     @FXML
-    private TextField UI_Search_End_Terminal=new TextField();
+    private TextField uiSearchEndTerminal=new TextField();
 
     @FXML
     public TextField id=new TextField();
@@ -72,89 +72,7 @@ public class UI extends Application {
     @FXML
     private Pane mainPane1;
 
-    @FXML
-    private ImageView seat1;
-
-    @FXML
-    private ImageView seat2;
-
-    @FXML
-    private ImageView seat3;
-
-    @FXML
-    private ImageView seat4;
-
-    @FXML
-    private ImageView seat5;
-
-    @FXML
-    private ImageView seat6;
-
-    @FXML
-    private ImageView seat7;
-
-    @FXML
-    private ImageView seat8;
-
-    @FXML
-    private ImageView seat9;
-
-    @FXML
-    private ImageView seat10;
-
-    @FXML
-    private ImageView seat11;
-
-    @FXML
-    private ImageView seat12;
-
-    @FXML
-    private ImageView seat13;
-
-    @FXML
-    private ImageView seat14;
-
-    @FXML
-    private ImageView seat15;
-
-    @FXML
-    private ImageView seat16;
-
-    @FXML
-    private ImageView seat17;
-
-    @FXML
-    private ImageView seat18;
-
-    @FXML
-    private ImageView seat19;
-
-    @FXML
-    private ImageView seat20;
-
-    @FXML
-    private ImageView seat21;
-
-    @FXML
-    private ImageView seat22;
-
-    @FXML
-    private ImageView seat23;
-
-    @FXML
-    private ImageView seat24;
-
-    @FXML
-    private ImageView seat25;
-
-    @FXML
-    private ImageView seat26;
-
-    @FXML
-    private ImageView seat27;
-
-    @FXML
-    private ImageView seat28;
+   
 
     @FXML
     private void showAge(){
@@ -162,29 +80,24 @@ public class UI extends Application {
         int year = now.get(Calendar.YEAR);
         int birthYear = (dateofBirth.getValue().getYear());
         int month = now.get(Calendar.MONTH);
-        int NowMonth = (dateofBirth.getValue().getMonthValue());
+        int nowMonth = (dateofBirth.getValue().getMonthValue());
         int day=now.get(Calendar.DATE);
-        int NowDate=(dateofBirth.getValue().getDayOfMonth());
+        int nowDate=(dateofBirth.getValue().getDayOfMonth());
         int age=year - birthYear + 1;;
-       //0살 핸들링
-       // logger.log(Level.INFO, Integer.toString(month)+"month");
-       // logger.log(Level.INFO, Integer.toString(NowMonth)+"Now month");
+
         if(age==1) {
-            logger.log(Level.INFO, Integer.toString(age)+"age");
-            if (month + 1 == NowMonth) {
 
-                //logger.log(Level.INFO, Integer.toString(day) + "Date");
-               // logger.log(Level.INFO, Integer.toString(NowDate) + "Now Date");
+            if (month + 1 == nowMonth) {
 
-                if (day < NowDate)
+
+
+                if (day < nowDate)
                     age = 0;
                 else
                     age = 1;
 
-            } else if (month + 1 < NowMonth) {
-               // logger.log(Level.INFO, Integer.toString(age)+"age");
-                //logger.log(Level.INFO, Integer.toString(day) + "Date");
-                //logger.log(Level.INFO, Integer.toString(NowDate) + "Now Date");
+            } else if (month + 1 < nowMonth) {
+
 
                 age = 0;
 
@@ -231,15 +144,15 @@ public class UI extends Application {
     }
 
 
-    public void Search()
+    public void search()
     {
         javafx.scene.image.Image redImage = new javafx.scene.image.Image(getClass().getResourceAsStream("seatB.png"));
         ShowBus showBus = new ShowBus();
         Bus bus = showBus.getBus(1);
-        UI_Search_Start_Terminal.setText(bus.startTerminal.name);
-        UI_Search_End_Terminal.setText(bus.endTerminal.name);
+        uiSearchStartTerminal.setText(bus.startTerminal.name);
+        uiSearchEndTerminal.setText(bus.endTerminal.name);
 
-        logger.log(Level.INFO, UI_Search_Start_Terminal.getText());
+        logger.log(Level.INFO, uiSearchStartTerminal.getText());
 
         ObservableList<Node> imageViews = mainPane1.getChildren();
         for (Seat seat : bus.seats) {
@@ -248,8 +161,11 @@ public class UI extends Application {
         }
     }
 
-    public void UISearch() throws  Exception
+
+
+    public void uiSearch() throws  Exception
     {
+
 
         Stage primaryStage = new Stage();
         URL url = getClass().getResource("Search.fxml");
@@ -274,7 +190,7 @@ public class UI extends Application {
 
 
 
-        LoginInterface Login = new LoginInterface();
+        LoginInterface loginInterface = new LoginInterface();
 
         if(id.getText().trim().isEmpty() && pw.getText().trim().isEmpty())
         {
@@ -290,15 +206,11 @@ public class UI extends Application {
             loginSuccess.setText("ID를 입력하세요");
 
         } else {
-            if (Login.login(id.getText(), pw.getText())) {
+            if (loginInterface.login(id.getText(), pw.getText())) {
                 loginSuccess.setText("Success");
 
-                {
-                    UI_Main();
 
-
-                }
-
+                    uiMain();
 
 
 
@@ -312,7 +224,7 @@ public class UI extends Application {
 
 
 
-    public void UI_Main() throws Exception
+    public void uiMain() throws Exception
     {
         Stage primaryStage = new Stage();
         URL url = getClass().getResource("Main.fxml");
@@ -329,7 +241,7 @@ public class UI extends Application {
     }
 
 
-    public void SignUpUI() throws Exception
+    public void signUpUI() throws Exception
         {
 
 
@@ -352,12 +264,12 @@ public class UI extends Application {
 
 
 
-    public void SignUp() throws Exception {
+    public void signUp() throws Exception {
 
 
 
-        SignupCheck SignUp = new SignupCheck();
-        int Sign_isPass=1;
+        SignupCheck signUpCheck = new SignupCheck();
+        int signIsPass=1;
         signUpHelpId.setText("");
         signUpHelpName.setText("");
         signUpHelpPw.setText("");
@@ -369,28 +281,28 @@ public class UI extends Application {
 
         if(signUpId.getText().isEmpty()) {
             signUpHelpId.setText("ID를 입력하세요");
-            Sign_isPass=0;
+            signIsPass=0;
         }
         if(signUpName.getText().isEmpty()) {
             signUpHelpName.setText("이름을 입력하세요");
-            Sign_isPass=0;
+            signIsPass=0;
         }
         if(signUpPw.getText().isEmpty()) {
             signUpHelpPw.setText("PW를 입력하세요");
-            Sign_isPass=0;
+            signIsPass=0;
         }
         if(dateofBirth.getValue() == null ) {
             signUpHelpAge.setText("생년월일을 선택하세요");
-            Sign_isPass=0;
+            signIsPass=0;
         }
 
         logger.log(Level.INFO, "result에 넣기");
 
-        if(Sign_isPass==1)
+        if(signIsPass==1)
         {
 
 
-            SignUp.signupResult=SignUp.signupData(signUpId.getText(), signUpPw.getText(),Integer.parseInt(ageField.getText()), signUpName.getText());
+            signUpCheck.signupResult=signUpCheck.signupData(signUpId.getText(), signUpPw.getText(),Integer.parseInt(ageField.getText()), signUpName.getText());
 
 
 
@@ -405,47 +317,47 @@ public class UI extends Application {
 
 
 
-        if (Sign_isPass==1)
+        if (signIsPass==1)
         {
 
 
-            switch (SignUp.signupResult) {
-                case SUCCESS: {
-                    SignUp.signup(signUpId.getText(), signUpPw.getText(), Integer.parseInt(ageField.getText()), signUpName.getText());
+            switch (signUpCheck.signupResult) {
+                case SUCCESS:
+                    signUpCheck.signup(signUpId.getText(), signUpPw.getText(), Integer.parseInt(ageField.getText()), signUpName.getText());
                     signUpIsSuccess.setText("Welcome");
                     signUpHelp.setText("You can enjoy our service!");
 
-                }
+
                 break;
-                case AGEERROR: {
+                case AGEERROR:
                     signUpIsSuccess.setText("Wrong Age");
                     signUpHelp.setText("Age is wrong, it should be over 1 year old");
 
-                }
+
                 break;
-                case NAMEERROR: {
+                case NAMEERROR:
                     signUpIsSuccess.setText("Wrong Name");
                     signUpHelp.setText("Name shoud be between 2 and 50, korean,alphabet");
 
-                }
+
                 break;
-                case PWERROR: {
+                case PWERROR:
                     signUpIsSuccess.setText("Wrong Password");
                     signUpHelp.setText("Password is wrong, it should be between 6 and 30");
 
-                }
+
                 break;
-                case IDEXISTSERROR: {
+                case IDEXISTSERROR:
                     signUpIsSuccess.setText("Exist ID");
                     signUpHelp.setText("You tried ID that already exists. Please try other one.");
 
-                }
-                break;
-                case IDFORMATERROR: {
-                    signUpIsSuccess.setText("Wrong ID Format");
-                    signUpHelp.setText("ID Format is wrong. it should be between 1 and 20, alphabet, number");
 
-                }
+                break;
+                case IDFORMATERROR:
+                    signUpIsSuccess.setText("Wrong ID Format");
+                    signUpHelp.setText("ID should be between 1 and 20, alphabet, number");
+
+
                 break;
             }
 

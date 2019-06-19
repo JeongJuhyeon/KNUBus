@@ -27,7 +27,7 @@
             <Font name="휴먼고딕" size="15.0" />
          </font>
       </Button>
-      <Button cache="true" layoutX="312.0" layoutY="344.0" mnemonicParsing="false" onAction="#SignUpUI" text="Sign Up" textAlignment="CENTER">
+      <Button cache="true" layoutX="312.0" layoutY="344.0" mnemonicParsing="false" onAction="#signUpUI" text="Sign Up" textAlignment="CENTER">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font>
@@ -45,7 +45,7 @@
             <Font name="휴먼고딕" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="Login_success" alignment="CENTER" editable="false" layoutX="143.0" layoutY="274.0" prefHeight="22.0" prefWidth="164.0" style="-fx-background-color: 244,244,244;">
+      <TextField fx:id="loginSuccess" alignment="CENTER" editable="false" layoutX="143.0" layoutY="274.0" prefHeight="22.0" prefWidth="164.0" style="-fx-background-color: 244,244,244;">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font>

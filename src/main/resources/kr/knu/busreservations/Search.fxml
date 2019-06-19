@@ -16,12 +16,12 @@
             <Image url="@arrow.png" />
          </image>
       </ImageView>
-      <TextField fx:id="UI_Search_Start_Terminal" alignment="CENTER" editable="false" layoutX="58.0" layoutY="78.0" prefHeight="36.0" prefWidth="99.0" style="-fx-background-color: 244,244,244;">
+      <TextField fx:id="uiSearchStartTerminal" alignment="CENTER" editable="false" layoutX="58.0" layoutY="78.0" prefHeight="36.0" prefWidth="99.0" style="-fx-background-color: 244,244,244;">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="UI_Search_End_Terminal" alignment="CENTER" editable="false" layoutX="297.0" layoutY="78.0" prefHeight="36.0" prefWidth="99.0" style="-fx-background-color: 244,244,244;">
+      <TextField fx:id="uiSearchEndTerminal" alignment="CENTER" editable="false" layoutX="297.0" layoutY="78.0" prefHeight="36.0" prefWidth="99.0" style="-fx-background-color: 244,244,244;">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font>
@@ -310,7 +310,7 @@
             <Font name="휴먼고딕" size="13.0" />
          </font>
       </Label>
-      <Button layoutX="190.0" layoutY="23.0" mnemonicParsing="false" onAction="#Search" text="Search">
+      <Button layoutX="190.0" layoutY="23.0" mnemonicParsing="false" onAction="#search" text="Search">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font>

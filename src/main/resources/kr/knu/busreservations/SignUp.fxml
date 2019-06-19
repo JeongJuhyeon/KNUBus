@@ -23,7 +23,7 @@
             <Font name="휴먼고딕" size="15.0" />
          </font></PasswordField>
       <DatePicker fx:id="dateofBirth" layoutX="180.0" layoutY="184.0" onAction="#showAge" onDragDetected="#showAge" onDragDone="#showAge" onDragDropped="#showAge" onDragEntered="#showAge" onDragExited="#showAge" onDragOver="#showAge" onMouseDragEntered="#showAge" onMouseDragExited="#showAge" onMouseDragOver="#showAge" onMouseDragReleased="#showAge" />
-      <Button layoutX="195.0" layoutY="411.0" mnemonicParsing="false" onAction="#SignUp" text="Sign up" textAlignment="CENTER">
+      <Button layoutX="195.0" layoutY="411.0" mnemonicParsing="false" onAction="#signUp" text="Sign up" textAlignment="CENTER">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></Button>

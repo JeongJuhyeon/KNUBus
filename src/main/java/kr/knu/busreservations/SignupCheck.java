@@ -67,7 +67,6 @@ public class SignupCheck {
         if (dbManagement.usernameAlreadyExists(id))
             return signupResult.IDEXISTSERROR;
 
-        signup(id, pw, age, name);
         return signupResult.SUCCESS;
     }
 

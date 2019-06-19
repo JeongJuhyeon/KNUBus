@@ -15,10 +15,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-import javax.swing.text.html.ImageView;
+import javafx.scene.image.ImageView;
 import java.awt.*;
 import java.awt.Button;
 import java.awt.TextArea;
@@ -85,7 +86,8 @@ public class UI extends Application {
     private TextField SignUpHelpAge=new TextField();
 
 
-
+    @FXML
+    private Pane mainPane1;
 
     @FXML
     private ImageView seat1;
@@ -267,27 +269,19 @@ public class UI extends Application {
 
     public void Search()
     {
+        javafx.scene.image.Image redImage = new javafx.scene.image.Image(getClass().getResourceAsStream("seatB.png"));
         ShowBus showBus = new ShowBus();
         Bus bus = showBus.getBus(1);
         UI_Search_Start_Terminal.setText(bus.startTerminal.name);
         UI_Search_End_Terminal.setText(bus.endTerminal.name);
 
-
         logger.log(Level.INFO, UI_Search_Start_Terminal.getText());
-        // occupied = 예약됨
-        for(int i=0; i<28; i++) {
-            if( bus.seats.get(i).occupied)
-            {
-                logger.log(Level.INFO, "occupied"+i);
 
-            }
-
-
-            else
-                logger.log(Level.INFO, "no occupied"+i);
-
+        ObservableList<Node> imageViews = mainPane1.getChildren();
+        for (Seat seat : bus.seats) {
+            if (seat.occupied)
+                ((ImageView) imageViews.get(seat.seatNo - 1)).setImage(redImage);
         }
-
     }
 
     public void UISearch() throws  Exception

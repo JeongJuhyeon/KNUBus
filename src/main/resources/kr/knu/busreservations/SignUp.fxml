@@ -10,11 +10,23 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kr.knu.busreservations.UI">
    <children>
-      <TextField fx:id="signUpName" layoutX="180.0" layoutY="54.0" />
-      <TextField fx:id="signUpId" layoutX="180.0" layoutY="93.0" />
-      <PasswordField fx:id="signUpPw" layoutX="180.0" layoutY="132.0" />
+      <TextField fx:id="signUpName" layoutX="180.0" layoutY="54.0">
+         <font>
+            <Font name="휴먼고딕" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="signUpId" layoutX="180.0" layoutY="93.0">
+         <font>
+            <Font name="휴먼고딕" size="15.0" />
+         </font></TextField>
+      <PasswordField fx:id="signUpPw" layoutX="180.0" layoutY="132.0">
+         <font>
+            <Font name="휴먼고딕" size="15.0" />
+         </font></PasswordField>
       <DatePicker fx:id="dateofBirth" layoutX="180.0" layoutY="184.0" onAction="#showAge" onDragDetected="#showAge" onDragDone="#showAge" onDragDropped="#showAge" onDragEntered="#showAge" onDragExited="#showAge" onDragOver="#showAge" onMouseDragEntered="#showAge" onMouseDragExited="#showAge" onMouseDragOver="#showAge" onMouseDragReleased="#showAge" />
-      <Button layoutX="195.0" layoutY="411.0" mnemonicParsing="false" onAction="#SignUp" text="Sign up" textAlignment="CENTER" />
+      <Button layoutX="195.0" layoutY="411.0" mnemonicParsing="false" onAction="#SignUp" text="Sign up" textAlignment="CENTER">
+         <font>
+            <Font name="휴먼고딕" size="15.0" />
+         </font></Button>
       <Label layoutX="93.0" layoutY="51.0" prefHeight="32.0" prefWidth="43.0" text="Name" textAlignment="CENTER" AnchorPane.topAnchor="51.0">
          <font>
             <Font name="휴먼고딕" size="15.0" />
@@ -35,13 +47,34 @@
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></Label>
-      <TextField fx:id="ageField" editable="false" focusTraversable="false" layoutX="180.0" layoutY="225.0" prefHeight="26.0" prefWidth="136.0" style="-fx-background-color: 244,244,244;" />
-      <TextField fx:id="SignUpIsSuccess" alignment="CENTER" editable="false" layoutX="149.0" layoutY="270.0" style="-fx-background-color: 244,244,244;" />
-      <TextField fx:id="SignUpHelp" alignment="CENTER" editable="false" layoutX="9.0" layoutY="299.0" prefHeight="26.0" prefWidth="438.0" style="-fx-background-color: 244,244,244;" />
-      <TextField fx:id="SignUpHelpID" alignment="CENTER" editable="false" layoutX="6.0" layoutY="373.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;" />
-      <TextField fx:id="SignUpHelpPW" alignment="CENTER" editable="false" layoutX="228.0" layoutY="373.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;" />
-      <TextField fx:id="SignUpHelpName" alignment="CENTER" editable="false" layoutX="6.0" layoutY="339.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;" />
-      <TextField fx:id="SignUpHelpAge" alignment="CENTER" editable="false" layoutX="228.0" layoutY="339.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;" />
+      <TextField fx:id="ageField" editable="false" focusTraversable="false" layoutX="180.0" layoutY="225.0" prefHeight="26.0" prefWidth="136.0" style="-fx-background-color: 244,244,244;">
+         <font>
+            <Font name="휴먼고딕" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="SignUpIsSuccess" alignment="CENTER" editable="false" layoutX="149.0" layoutY="270.0" style="-fx-background-color: 244,244,244;">
+         <font>
+            <Font name="휴먼고딕" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="SignUpHelp" editable="false" layoutX="9.0" layoutY="299.0" prefHeight="26.0" prefWidth="438.0" style="-fx-background-color: 244,244,244;">
+         <font>
+            <Font name="휴먼고딕" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="SignUpHelpID" alignment="CENTER" editable="false" layoutX="228.0" layoutY="339.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;">
+         <font>
+            <Font name="휴먼고딕" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="SignUpHelpPW" alignment="CENTER" editable="false" layoutX="6.0" layoutY="374.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;">
+         <font>
+            <Font name="휴먼고딕" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="SignUpHelpName" alignment="CENTER" editable="false" layoutX="6.0" layoutY="339.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;">
+         <font>
+            <Font name="휴먼고딕" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="SignUpHelpAge" alignment="CENTER" editable="false" layoutX="228.0" layoutY="374.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;">
+         <font>
+            <Font name="휴먼고딕" size="15.0" />
+         </font></TextField>
 
    </children>
 </AnchorPane>

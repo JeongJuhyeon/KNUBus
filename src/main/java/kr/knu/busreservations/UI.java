@@ -18,15 +18,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import javax.swing.text.html.ImageView;
 import java.awt.*;
 import java.awt.Button;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.time.Month;
+import java.util.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,9 +37,17 @@ import static kr.knu.busreservations.SignupCheck.SignupResult.SUCCESS;
 
 public class UI extends Application {
 
-    SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+
 
     Logger logger = Logger.getLogger("My Logger");
+
+
+    @FXML
+    private TextField UI_Search_Start_Terminal=new TextField();
+
+    @FXML
+    private TextField UI_Search_End_Terminal=new TextField();
+
     @FXML
     public TextField id=new TextField();
     @FXML
@@ -75,16 +84,117 @@ public class UI extends Application {
     @FXML
     private TextField SignUpHelpAge=new TextField();
 
+
+
+
     @FXML
-    private Button btn_signUp;
+    private ImageView seat1;
+
+    @FXML
+    private ImageView seat2;
+
+    @FXML
+    private ImageView seat3;
+
+    @FXML
+    private ImageView seat4;
+
+    @FXML
+    private ImageView seat5;
+
+    @FXML
+    private ImageView seat6;
+
+    @FXML
+    private ImageView seat7;
+
+    @FXML
+    private ImageView seat8;
+
+    @FXML
+    private ImageView seat9;
+
+    @FXML
+    private ImageView seat10;
+
+    @FXML
+    private ImageView seat11;
+
+    @FXML
+    private ImageView seat12;
+
+    @FXML
+    private ImageView seat13;
+
+    @FXML
+    private ImageView seat14;
+
+    @FXML
+    private ImageView seat15;
+
+    @FXML
+    private ImageView seat16;
+
+    @FXML
+    private ImageView seat17;
+
+    @FXML
+    private ImageView seat18;
+
+    @FXML
+    private ImageView seat19;
+
+    @FXML
+    private ImageView seat20;
+
+    @FXML
+    private ImageView seat21;
+
+    @FXML
+    private ImageView seat22;
+
+    @FXML
+    private ImageView seat23;
+
+    @FXML
+    private ImageView seat24;
+
+    @FXML
+    private ImageView seat25;
+
+    @FXML
+    private ImageView seat26;
+
+    @FXML
+    private ImageView seat27;
+
+    @FXML
+    private ImageView seat28;
 
     @FXML
     private void showAge(){
         Calendar now = Calendar.getInstance();
         int year = now.get(Calendar.YEAR);
         int birthYear = (dateofBirth.getValue().getYear());
+        int month = now.get(Calendar.MONTH);
+        int NowMonth = (dateofBirth.getValue().getMonthValue());
+        int day=now.get(Calendar.DATE);
+        int NowDate=(dateofBirth.getValue().getDayOfMonth());
+
+       //0살 핸들링
+        logger.log(Level.INFO, Integer.toString(month));
+        logger.log(Level.INFO, Integer.toString(NowMonth));
+
+        if(month>NowMonth)
+        {
+            if(day>NowDate)
+                ageField.setText("0");
+        }
         int age = year - birthYear + 1;
         ageField.setText(Integer.toString(age));
+
+
+
 
     }
 
@@ -112,7 +222,7 @@ public class UI extends Application {
 
 
         logger.log(Level.INFO, "start 메소드 수행3");
-        primaryStage.setTitle("Bus Reservation System");
+
         primaryStage.setScene(new Scene(root, 450, 450));
         primaryStage.show();
         DBManagement.connect();
@@ -135,6 +245,58 @@ public class UI extends Application {
         else
             Login_success.setText("Failure");
         */
+    }
+
+
+    public void UI_Search() throws  Exception
+    {
+
+
+
+
+
+
+        ShowBus showBus = new ShowBus();
+        Bus bus = showBus.getBus(1);
+
+
+
+
+           // occupied = 예약됨
+        for(int i=0; i<28; i++) {
+            if( bus.seats.get(i).occupied)
+            {
+                logger.log(Level.INFO, "occupied"+i);
+
+
+            }
+
+
+            else
+                logger.log(Level.INFO, "no occupied"+i);
+
+        }
+
+
+
+
+        Stage primaryStage = new Stage();
+        URL url = getClass().getResource("Search.fxml");
+        if (url == null) {
+
+            logger.log(Level.INFO, "Can't load FXML file");
+            Platform.exit();
+        }
+
+        Parent root = FXMLLoader.load(url);
+        primaryStage.setScene(new Scene(root, 450, 450));
+        primaryStage.show();
+
+
+
+
+
+
     }
 
 
@@ -188,25 +350,6 @@ public class UI extends Application {
     }
 
 
-/*
-    public void UI_signUp(ActionEvent event) throws Exception
-    {
-        URL url = getClass().getResource("SignUp.fxml");
-        if (url == null) {
-            logger.log(Level.INFO, "Can't load FXML file");
-            Platform.exit();
-        }
-
-        Parent UI_signUp = FXMLLoader.load(url);
-        Scene SignUp_Scene = new Scene(UI_signUp);
-
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-        window.setScene(SignUp_Scene);
-        window.show();
-
-    }
-    */
 
     public void UI_Main() throws Exception
     {
@@ -227,7 +370,6 @@ public class UI extends Application {
 
     public void SignUpUI() throws Exception
         {
-
 
 
             Stage primaryStage = new Stage();
@@ -320,7 +462,7 @@ public class UI extends Application {
                 break;
                 case NAMEERROR: {
                     SignUpIsSuccess.setText("Wrong Name");
-                    SignUpHelp.setText("Name is wrong, it shoud be between 2 and 50, korean,alphabet");
+                    SignUpHelp.setText("Name shoud be between 2 and 50, korean,alphabet");
 
                 }
                 break;
@@ -349,23 +491,6 @@ public class UI extends Application {
     }
 
 
-
-
-
-
-/*
-    // 그런데 의도한바와 다르게 딱히 메인 메소드 안넣어도 잘 실행된다.. 굳
-    //이 클래스가 메인일 경우에는 이렇게 해도 되고,
-    //만약 다른 클래스를 메인으로 두고 UI를 호출한다면
-    //그 클래스에서 Application.launch(UI.class, args); 를 호출해야한다.
-    public static void main(String[] args) {
-
-        launch(args);
-    }
-
-
-
-    */
 
     }
 

@@ -66,7 +66,7 @@ public class DBManagement {
         for (Map.Entry<String, String> entry : userDetails.entrySet()) {
             newUserDocument.append(entry.getKey(), entry.getValue());
         }
-        newUserDocument.append("user_id", getNextUserID());
+        newUserDocument.append(ID_KEY, getNextUserID() + 1);
         collection.insertOne(newUserDocument);
     }
 
@@ -86,8 +86,8 @@ public class DBManagement {
         }
 
         int user_id;
-        if (result.get("user_id").getClass() == Double.class) {
-            user_id = ((Double) result.get("user_id")).intValue();
+        if (result.get(ID_KEY).getClass() == Double.class) {
+            user_id = ((Double) result.get(ID_KEY)).intValue();
         }
         else
             user_id = (int) result.get(ID_KEY);
@@ -123,8 +123,15 @@ public class DBManagement {
 
     private int getNextUserID(){
         setCollection(USERS_COLLECTION);
-        Document result = collection.find().sort(new Document().append("user_id", -1)).first();
-        Double user_id = (Double) result.get("user_id");
-        return user_id.intValue();
+        Document result = collection.find().sort(new Document().append(ID_KEY, -1)).first();
+        int user_id;
+
+        if (result.get(ID_KEY).getClass() == Double.class) {
+            user_id = ((Double) result.get(ID_KEY)).intValue();
+        }
+        else
+            user_id = (int) result.get(ID_KEY);
+        
+        return user_id;
     }
 }

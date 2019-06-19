@@ -58,9 +58,9 @@ public class SignupCheck {
         else {
             if (name.chars().anyMatch(n -> !Character.isLetter(n) && !Character.isSpaceChar(n)))
                 return SignupCheck.SignupResult.NAMEERROR;
-            boolean all_latin = name.chars().allMatch(n -> Character.UnicodeBlock.of(n) == Character.UnicodeBlock.BASIC_LATIN);
-            boolean all_hangul = name.chars().allMatch(n -> Character.UnicodeBlock.of(n) == Character.UnicodeBlock.HANGUL_SYLLABLES);
-            if (!all_latin && !all_hangul)
+            boolean allLatin = name.chars().allMatch(n -> Character.UnicodeBlock.of(n) == Character.UnicodeBlock.BASIC_LATIN);
+            boolean allHangul = name.chars().allMatch(n -> Character.UnicodeBlock.of(n) == Character.UnicodeBlock.HANGUL_SYLLABLES);
+            if (!allLatin && !allHangul)
                 return SignupCheck.SignupResult.NAMEERROR;
         }
 

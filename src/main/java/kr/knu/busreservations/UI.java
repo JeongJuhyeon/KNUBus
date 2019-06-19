@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -15,12 +16,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.awt.*;
+import java.awt.Button;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +35,8 @@ import static kr.knu.busreservations.SignupCheck.SignupResult.SUCCESS;
 
 
 public class UI extends Application {
+
+    SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 
     Logger logger = Logger.getLogger("My Logger");
     @FXML
@@ -69,6 +76,9 @@ public class UI extends Application {
     private TextField SignUpHelpAge=new TextField();
 
     @FXML
+    private Button btn_signUp;
+
+    @FXML
     private void showAge(){
         Calendar now = Calendar.getInstance();
         int year = now.get(Calendar.YEAR);
@@ -78,20 +88,32 @@ public class UI extends Application {
 
     }
 
+
+
     //로그인 성공 실패 창띄우려고 만든 변수
     public Label lblStatus;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+
+        logger.log(Level.INFO, "start 메소드 수행");
+
+
         URL url = getClass().getResource("Login.fxml");
         if (url == null) {
             logger.log(Level.INFO, "Can't load FXML file");
             Platform.exit();
         }
 
-        Parent root = FXMLLoader.load(url);
+
+        logger.log(Level.INFO, "start 메소드 수행2");
+        Parent root = FXMLLoader.load(url); // ???
+
+
+        logger.log(Level.INFO, "start 메소드 수행3");
         primaryStage.setTitle("Bus Reservation System");
-        primaryStage.setScene(new Scene(root, 381, 233));
+        primaryStage.setScene(new Scene(root, 450, 450));
         primaryStage.show();
         DBManagement.connect();
 
@@ -118,6 +140,8 @@ public class UI extends Application {
 
     public void Login() throws Exception {
 
+
+
         LoginInterface Login = new LoginInterface();
 
         if(id.getText().trim().isEmpty() && pw.getText().trim().isEmpty())
@@ -137,6 +161,14 @@ public class UI extends Application {
             if (Login.login(id.getText(), pw.getText())) {
                 Login_success.setText("Success");
 
+                {
+                    UI_Main();
+
+
+                }
+
+
+
 
             } else {
                 Login_success.setText("Failure");
@@ -155,8 +187,49 @@ public class UI extends Application {
 
     }
 
+
+/*
+    public void UI_signUp(ActionEvent event) throws Exception
+    {
+        URL url = getClass().getResource("SignUp.fxml");
+        if (url == null) {
+            logger.log(Level.INFO, "Can't load FXML file");
+            Platform.exit();
+        }
+
+        Parent UI_signUp = FXMLLoader.load(url);
+        Scene SignUp_Scene = new Scene(UI_signUp);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(SignUp_Scene);
+        window.show();
+
+    }
+    */
+
+    public void UI_Main() throws Exception
+    {
+        Stage primaryStage = new Stage();
+        URL url = getClass().getResource("Main.fxml");
+        if (url == null) {
+            logger.log(Level.INFO, "Can't load FXML file");
+            Platform.exit();
+        }
+
+        Parent root = FXMLLoader.load(url);
+        primaryStage.setScene(new Scene(root, 450, 450));
+        primaryStage.show();
+
+
+    }
+
+
     public void SignUpUI() throws Exception
         {
+
+
+
             Stage primaryStage = new Stage();
             URL url = getClass().getResource("SignUp.fxml");
             if (url == null) {
@@ -165,13 +238,20 @@ public class UI extends Application {
             }
 
             Parent root = FXMLLoader.load(url);
-           primaryStage.setScene(new Scene(root, 485, 444));
+           primaryStage.setScene(new Scene(root, 450, 450));
             primaryStage.show();
 
 
 
+
         }
+
+
+
+
     public void SignUp() throws Exception {
+
+
 
         SignupCheck SignUp = new SignupCheck();
         int Sign_isPass=1;

@@ -60,7 +60,7 @@ public class DBManagement {
 
     }
 
-    public void initTestDB(){
+    public void initializeTestDB(){
         BasicDBObject document = new BasicDBObject();
 
         setDatabase("testdb");
@@ -167,9 +167,6 @@ public class DBManagement {
      * @return null if busId not in db, else the relevant bus as Bus object
      */
     Bus getBusById(int busId){
-
-
-
         List<Seat> seatList;
 
         setCollection(BUSES_COLLECTION);
@@ -214,18 +211,20 @@ public class DBManagement {
         if (queryResult == null || queryResult.isEmpty()) {
             newTerminal.put("id", 1);
             newTerminal.put("name", "Seoul");
+            collection.insertOne(newTerminal);
         }
 
-        collection.insertOne(newTerminal);
+
 
         queryResult = collection.find(eq("id", 2)).first();
         newTerminal = new Document();
         if (queryResult == null || queryResult.isEmpty()) {
             newTerminal.put("id", 2);
             newTerminal.put("name", "Dongdaegu");
+            collection.insertOne(newTerminal);
         }
 
-        collection.insertOne(newTerminal);
+
     }
 
     private void insertBusIntoDB(String dbName) {
@@ -234,7 +233,7 @@ public class DBManagement {
 
         Document queryResult = collection.find(eq("id", 1)).first();
 
-        if (queryResult != null || queryResult.isEmpty())
+        if (queryResult != null)
             return;
 
         Boolean occupied;

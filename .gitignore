@@ -93,3 +93,5 @@ target/
 \.idea/misc\.xml
 
 \.idea/compiler\.xml
+
+test/java/kr/knu/busreservations/

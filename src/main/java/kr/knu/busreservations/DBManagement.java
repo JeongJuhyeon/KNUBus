@@ -57,28 +57,27 @@ public class DBManagement {
         String mongoAddress = String.format("mongodb://myUserAdmin:%s@155.230.91.220", getDBPW());
 
         MongoClient testMongoClient = MongoClients.create(mongoAddress);
-        MongoDatabase testDatabase = testMongoClient.getDatabase("testdb");
+        MongoDatabase testDatabase = testMongoClient.getDatabase(TEST_DB);
         MongoCollection<Document> testCollection = testDatabase.getCollection("testcollection");
-        testCollection.find().forEach(printBlock);
-
-
+        testCollection.find().forEach((Block) document -> {
+            String docString = document.toString();
+            logger.log(Level.INFO, docString);
+        });
     }
 
     public void initializeTestDB(){
         BasicDBObject document = new BasicDBObject();
 
-        setDatabase("testdb");
+        setDatabase(TEST_DB);
         setCollection(TERMINALS_COLLECTION);
         collection.deleteMany(document);
 
         setCollection(BUSES_COLLECTION);
         collection.deleteMany(document);
 
-        insertTerminalsIntoDB("testdb");
-        insertBusIntoDB("testdb");
+        insertTerminalsIntoDB(TEST_DB);
+        insertBusIntoDB(TEST_DB);
     }
-
-    private static Block<Document> printBlock = document -> logger.log(Level.INFO, document.toJson());
 
     boolean usernameAlreadyExists(String username){
         setCollection(USERS_COLLECTION);
@@ -147,7 +146,7 @@ public class DBManagement {
         int userId;
 
         if (result == null || result.isEmpty()) {
-            System.out.println("No database entries with 'user_id' field found");
+            logger.log(Level.INFO, "No database entries with 'user_id' field found");
             return 1;
         }
 

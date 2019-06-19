@@ -55,9 +55,7 @@ public class DBManagement {
     boolean usernameAlreadyExists(String username){
         setCollection(USERS_COLLECTION);
         Document queryResult = collection.find(eq("username", username)).first();
-        if (queryResult == null)
-            return false;
-        return true;
+        return (queryResult != null);
     }
 
     void createNewUser(Map<String, String> userDetails) {
@@ -85,14 +83,14 @@ public class DBManagement {
             return null;
         }
 
-        int user_id;
+        int userId;
         if (result.get(ID_KEY).getClass() == Double.class) {
-            user_id = ((Double) result.get(ID_KEY)).intValue();
+            userId = ((Double) result.get(ID_KEY)).intValue();
         }
         else
-            user_id = (int) result.get(ID_KEY);
+            userId = (int) result.get(ID_KEY);
 
-        return new User(user_id, username);
+        return new User(userId, username);
     }
 
     private static String getDBPW(){
@@ -124,7 +122,7 @@ public class DBManagement {
     private int getNextUserID(){
         setCollection(USERS_COLLECTION);
         Document result = collection.find().sort(new Document().append(ID_KEY, -1)).first();
-        int user_id;
+        int userId;
 
         if (result == null) {
             System.out.println("No database entries with 'user_id' field found");
@@ -132,11 +130,11 @@ public class DBManagement {
         }
 
         if (result.get(ID_KEY).getClass() == Double.class) {
-            user_id = ((Double) result.get(ID_KEY)).intValue();
+            userId = ((Double) result.get(ID_KEY)).intValue();
         }
         else
-            user_id = (int) result.get(ID_KEY);
+            userId = (int) result.get(ID_KEY);
         
-        return user_id;
+        return userId;
     }
 }

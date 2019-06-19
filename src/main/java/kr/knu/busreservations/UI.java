@@ -13,6 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
@@ -127,11 +129,10 @@ public class UI extends Application {
 
 
 
-    //로그인 성공 실패 창띄우려고 만든 변수
-    public Label lblStatus;
+
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws IOException {
 
 
         logger.log(Level.INFO, "start 메소드 수행");
@@ -176,7 +177,7 @@ public class UI extends Application {
 
 
 
-    public void uiSearch() throws  Exception
+    public void uiSearch() throws  IOException
     {
 
 
@@ -198,7 +199,7 @@ public class UI extends Application {
     }
 
 
-    public void login() throws Exception {
+    public void login() throws IOException {
 
 
 
@@ -236,7 +237,7 @@ public class UI extends Application {
 
 
 
-    public void uiMain() throws Exception
+    public void uiMain() throws IOException
     {
         Stage primaryStage = new Stage();
         URL url = getClass().getResource("Main.fxml");
@@ -252,7 +253,7 @@ public class UI extends Application {
     }
 
 
-    public void signUpUI() throws Exception
+    public void signUpUI() throws IOException
         {
 
 
@@ -274,7 +275,8 @@ public class UI extends Application {
 
 
 
-    public void signUp() throws Exception {
+    public void signUp()
+    {
 
 
 

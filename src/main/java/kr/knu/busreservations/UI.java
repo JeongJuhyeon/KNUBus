@@ -2,39 +2,22 @@ package kr.knu.busreservations;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-
 import javafx.scene.image.ImageView;
-import java.awt.*;
-import java.awt.Button;
-import java.awt.TextArea;
-import java.awt.event.ActionEvent;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.time.Month;
 import java.util.*;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
-import static kr.knu.busreservations.SignupCheck.SignupResult.SUCCESS;
-
 
 public class UI extends Application {
 
@@ -55,7 +38,7 @@ public class UI extends Application {
     public TextField pw=new TextField();
 
     @FXML
-    private TextField Login_success=new TextField();
+    private TextField loginSuccess=new TextField();
 
     @FXML
     public TextField signUpId=new TextField();
@@ -68,22 +51,22 @@ public class UI extends Application {
     @FXML
     private TextField ageField=new TextField();
     @FXML
-    private TextField SignUpIsSuccess=new TextField();
+    private TextField signUpIsSuccess=new TextField();
 
     @FXML
-    private TextField SignUpHelp=new TextField();
+    private TextField signUpHelp=new TextField();
 
     @FXML
-    private TextField SignUpHelpName=new TextField();
+    private TextField signUpHelpName=new TextField();
 
     @FXML
-    private TextField SignUpHelpID=new TextField();
+    private TextField signUpHelpId=new TextField();
 
     @FXML
-    private TextField SignUpHelpPW=new TextField();
+    private TextField signUpHelpPw=new TextField();
 
     @FXML
-    private TextField SignUpHelpAge=new TextField();
+    private TextField signUpHelpAge=new TextField();
 
 
     @FXML
@@ -231,7 +214,7 @@ public class UI extends Application {
 
         URL url = getClass().getResource("Login.fxml");
         if (url == null) {
-            logger.log(Level.INFO, "Can't load FXML file");
+            logger.log(Level.INFO, "Can't load Login.fxml file");
             Platform.exit();
         }
 
@@ -245,25 +228,6 @@ public class UI extends Application {
         primaryStage.setScene(new Scene(root, 450, 450));
         primaryStage.show();
         DBManagement.connect();
-
-
-        /*
-        //SignUp Test
-        SignupCheck SignUp = new SignupCheck();
-        SignUp.signup("test1234", "123456", 20, "Test");
-        logger.log(Level.INFO, "수행되었음");
-        */
-
-        // Login Test
-        /*
-        LoginInterface Login = new LoginInterface();
-
-
-        if(Login.login("messi", "1234"))
-            Login_success.setText("Success");
-        else
-            Login_success.setText("Failure");
-        */
     }
 
 
@@ -290,7 +254,7 @@ public class UI extends Application {
         Stage primaryStage = new Stage();
         URL url = getClass().getResource("Search.fxml");
         if (url == null) {
-            logger.log(Level.INFO, "Can't load FXML file");
+            logger.log(Level.INFO, "Can't load Search.FXML file");
             Platform.exit();
         }
 
@@ -306,7 +270,7 @@ public class UI extends Application {
     }
 
 
-    public void Login() throws Exception {
+    public void login() throws Exception {
 
 
 
@@ -314,20 +278,20 @@ public class UI extends Application {
 
         if(id.getText().trim().isEmpty() && pw.getText().trim().isEmpty())
         {
-            Login_success.setText("ID와 PW를 입력하세요");
+            loginSuccess.setText("ID와 PW를 입력하세요");
 
 
         }else if(pw.getText().trim().isEmpty())
         {
 
-            Login_success.setText("PW를 입력하세요");
+            loginSuccess.setText("PW를 입력하세요");
         } else if(id.getText().trim().isEmpty())
         {
-            Login_success.setText("ID를 입력하세요");
+            loginSuccess.setText("ID를 입력하세요");
 
         } else {
             if (Login.login(id.getText(), pw.getText())) {
-                Login_success.setText("Success");
+                loginSuccess.setText("Success");
 
                 {
                     UI_Main();
@@ -339,19 +303,10 @@ public class UI extends Application {
 
 
             } else {
-                Login_success.setText("Failure");
+                loginSuccess.setText("Failure");
 
             }
         }
-        /*
-        // 창 새로 띄워서 하고 싶은데, 일단 보류
-        Parent loginLoot = FXMLLoader.load(getClass().getResource("Login_success.fxml"));
-        Stage primaryStage = new Stage();
-        Scene scene = new Scene(loginLoot);
-        lblStatus.setText(Login_success.getText());
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    */
 
     }
 
@@ -362,7 +317,7 @@ public class UI extends Application {
         Stage primaryStage = new Stage();
         URL url = getClass().getResource("Main.fxml");
         if (url == null) {
-            logger.log(Level.INFO, "Can't load FXML file");
+            logger.log(Level.INFO, "Can't load Main.FXML file");
             Platform.exit();
         }
 
@@ -403,29 +358,29 @@ public class UI extends Application {
 
         SignupCheck SignUp = new SignupCheck();
         int Sign_isPass=1;
-        SignUpHelpID.setText("");
-        SignUpHelpName.setText("");
-        SignUpHelpPW.setText("");
-        SignUpHelpAge.setText("");
-        SignUpHelp.setText("");
-        SignUpIsSuccess.setText("");
+        signUpHelpId.setText("");
+        signUpHelpName.setText("");
+        signUpHelpPw.setText("");
+        signUpHelpAge.setText("");
+        signUpHelp.setText("");
+        signUpIsSuccess.setText("");
 
         logger.log(Level.INFO, "초기화");
 
         if(signUpId.getText().isEmpty()) {
-            SignUpHelpID.setText("ID를 입력하세요");
+            signUpHelpId.setText("ID를 입력하세요");
             Sign_isPass=0;
         }
         if(signUpName.getText().isEmpty()) {
-            SignUpHelpName.setText("이름을 입력하세요");
+            signUpHelpName.setText("이름을 입력하세요");
             Sign_isPass=0;
         }
         if(signUpPw.getText().isEmpty()) {
-            SignUpHelpPW.setText("PW를 입력하세요");
+            signUpHelpPw.setText("PW를 입력하세요");
             Sign_isPass=0;
         }
         if(dateofBirth.getValue() == null ) {
-            SignUpHelpAge.setText("생년월일을 선택하세요");
+            signUpHelpAge.setText("생년월일을 선택하세요");
             Sign_isPass=0;
         }
 
@@ -457,38 +412,38 @@ public class UI extends Application {
             switch (SignUp.signupResult) {
                 case SUCCESS: {
                     SignUp.signup(signUpId.getText(), signUpPw.getText(), Integer.parseInt(ageField.getText()), signUpName.getText());
-                    SignUpIsSuccess.setText("Welcome");
-                    SignUpHelp.setText("You can enjoy our service!");
+                    signUpIsSuccess.setText("Welcome");
+                    signUpHelp.setText("You can enjoy our service!");
 
                 }
                 break;
                 case AGEERROR: {
-                    SignUpIsSuccess.setText("Wrong Age");
-                    SignUpHelp.setText("Age is wrong, it should be over 1 year old");
+                    signUpIsSuccess.setText("Wrong Age");
+                    signUpHelp.setText("Age is wrong, it should be over 1 year old");
 
                 }
                 break;
                 case NAMEERROR: {
-                    SignUpIsSuccess.setText("Wrong Name");
-                    SignUpHelp.setText("Name shoud be between 2 and 50, korean,alphabet");
+                    signUpIsSuccess.setText("Wrong Name");
+                    signUpHelp.setText("Name shoud be between 2 and 50, korean,alphabet");
 
                 }
                 break;
                 case PWERROR: {
-                    SignUpIsSuccess.setText("Wrong Password");
-                    SignUpHelp.setText("Password is wrong, it should be between 6 and 30");
+                    signUpIsSuccess.setText("Wrong Password");
+                    signUpHelp.setText("Password is wrong, it should be between 6 and 30");
 
                 }
                 break;
                 case IDEXISTSERROR: {
-                    SignUpIsSuccess.setText("Exist ID");
-                    SignUpHelp.setText("You tried ID that already exists. Please try other one.");
+                    signUpIsSuccess.setText("Exist ID");
+                    signUpHelp.setText("You tried ID that already exists. Please try other one.");
 
                 }
                 break;
                 case IDFORMATERROR: {
-                    SignUpIsSuccess.setText("Wrong ID Format");
-                    SignUpHelp.setText("ID Format is wrong. it should be between 1 and 20, alphabet, number");
+                    signUpIsSuccess.setText("Wrong ID Format");
+                    signUpHelp.setText("ID Format is wrong. it should be between 1 and 20, alphabet, number");
 
                 }
                 break;

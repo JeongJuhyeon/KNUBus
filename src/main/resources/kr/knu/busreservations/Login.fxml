@@ -22,7 +22,7 @@
             <Font name="휴먼고딕" size="15.0" />
          </font>
       </PasswordField>
-          <Button cache="true" layoutX="71.0" layoutY="344.0" mnemonicParsing="false" onAction="#Login" text="Login" textAlignment="CENTER">
+          <Button cache="true" layoutX="71.0" layoutY="344.0" mnemonicParsing="false" onAction="#login" text="Login" textAlignment="CENTER">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font>

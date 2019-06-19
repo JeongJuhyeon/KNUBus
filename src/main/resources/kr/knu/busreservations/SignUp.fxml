@@ -51,27 +51,27 @@
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></TextField>
-      <TextField fx:id="SignUpIsSuccess" alignment="CENTER" editable="false" layoutX="149.0" layoutY="270.0" style="-fx-background-color: 244,244,244;">
+      <TextField fx:id="signUpIsSuccess" alignment="CENTER" editable="false" layoutX="149.0" layoutY="270.0" style="-fx-background-color: 244,244,244;">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></TextField>
-      <TextField fx:id="SignUpHelp" editable="false" layoutX="9.0" layoutY="299.0" prefHeight="26.0" prefWidth="438.0" style="-fx-background-color: 244,244,244;">
+      <TextField fx:id="signUpHelp" editable="false" layoutX="9.0" layoutY="299.0" prefHeight="26.0" prefWidth="438.0" style="-fx-background-color: 244,244,244;">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></TextField>
-      <TextField fx:id="SignUpHelpID" alignment="CENTER" editable="false" layoutX="228.0" layoutY="339.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;">
+      <TextField fx:id="signUpHelpId" alignment="CENTER" editable="false" layoutX="228.0" layoutY="339.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></TextField>
-      <TextField fx:id="SignUpHelpPW" alignment="CENTER" editable="false" layoutX="6.0" layoutY="374.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;">
+      <TextField fx:id="signUpHelpPw" alignment="CENTER" editable="false" layoutX="6.0" layoutY="374.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></TextField>
-      <TextField fx:id="SignUpHelpName" alignment="CENTER" editable="false" layoutX="6.0" layoutY="339.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;">
+      <TextField fx:id="signUpHelpName" alignment="CENTER" editable="false" layoutX="6.0" layoutY="339.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></TextField>
-      <TextField fx:id="SignUpHelpAge" alignment="CENTER" editable="false" layoutX="228.0" layoutY="374.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;">
+      <TextField fx:id="signUpHelpAge" alignment="CENTER" editable="false" layoutX="228.0" layoutY="374.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></TextField>

@@ -72,7 +72,6 @@ public class UI extends Application {
     @FXML
     private Pane mainPane1;
 
-   
 
     @FXML
     private void showAge(){

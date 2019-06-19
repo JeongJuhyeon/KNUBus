@@ -2,11 +2,11 @@ package kr.knu.busreservations;
 
 public class User {
 
-    int Id;
+    int id;
     String username;
 
     User(int id, String username) {
-        this.Id = id;
+        this.id = id;
         this.username = username;
     }
 }

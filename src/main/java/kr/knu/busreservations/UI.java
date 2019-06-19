@@ -248,26 +248,20 @@ public class UI extends Application {
     }
 
 
-    public void UI_Search() throws  Exception
+    public void Search()
     {
-
-
-
-
-
-
         ShowBus showBus = new ShowBus();
         Bus bus = showBus.getBus(1);
+        UI_Search_Start_Terminal.setText(bus.startTerminal.name);
+        UI_Search_End_Terminal.setText(bus.endTerminal.name);
 
 
-
-
-           // occupied = 예약됨
+        logger.log(Level.INFO, UI_Search_Start_Terminal.getText());
+        // occupied = 예약됨
         for(int i=0; i<28; i++) {
             if( bus.seats.get(i).occupied)
             {
                 logger.log(Level.INFO, "occupied"+i);
-
 
             }
 
@@ -277,13 +271,14 @@ public class UI extends Application {
 
         }
 
+    }
 
-
+    public void UISearch() throws  Exception
+    {
 
         Stage primaryStage = new Stage();
         URL url = getClass().getResource("Search.fxml");
         if (url == null) {
-
             logger.log(Level.INFO, "Can't load FXML file");
             Platform.exit();
         }

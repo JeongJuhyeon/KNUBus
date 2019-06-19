@@ -10,11 +10,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kr.knu.busreservations.UI">
    <children>
-      <TextField fx:id="signUpName" layoutX="180.0" layoutY="54.0">
+      <TextField fx:id="signUpName" layoutX="184.0" layoutY="27.0">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></TextField>
-      <TextField fx:id="signUpId" layoutX="180.0" layoutY="93.0">
+      <TextField fx:id="signUpId" layoutX="184.0" layoutY="80.0">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></TextField>
@@ -27,11 +27,11 @@
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></Button>
-      <Label layoutX="93.0" layoutY="51.0" prefHeight="32.0" prefWidth="43.0" text="Name" textAlignment="CENTER" AnchorPane.topAnchor="51.0">
+      <Label layoutX="94.0" layoutY="24.0" prefHeight="32.0" prefWidth="43.0" text="Name" textAlignment="CENTER" AnchorPane.topAnchor="24.0">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></Label>
-      <Label layoutX="108.0" layoutY="97.0" prefHeight="18.0" prefWidth="14.0" text="ID" textAlignment="CENTER">
+      <Label layoutX="104.0" layoutY="84.0" prefHeight="18.0" prefWidth="26.0" text="ID" textAlignment="CENTER">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></Label>

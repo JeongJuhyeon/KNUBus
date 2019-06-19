@@ -1,18 +1,18 @@
 package kr.knu.busreservations;
 
 public class Seat {
-    int seatId;
+    int seatNo;
     boolean occupied;
     int ticketId;
     int userId;
 
-    Seat(int seatId, boolean occupied) {
-        this.seatId = seatId;
+    Seat(int seatNo, boolean occupied) {
+        this.seatNo = seatNo;
         this.occupied = occupied;
     }
 
-    Seat(int seatId, boolean occupied, int ticketId, int userId) {
-        this.seatId = seatId;
+    Seat(int seatNo, boolean occupied, int ticketId, int userId) {
+        this.seatNo = seatNo;
         this.occupied = occupied;
         this.ticketId = ticketId;
         this.userId = userId;

@@ -3,10 +3,9 @@ package kr.knu.busreservations;
 public class ShowBus {
     DBManagement dbManagement;
 
-    Bus Showbus(Bus bus)
+    Bus getBus(int id)
     {
         this.dbManagement = new DBManagement("p3");
-
-        return dbManagement.getBusById(1);
+        return dbManagement.getBusById(id);
     }
 }

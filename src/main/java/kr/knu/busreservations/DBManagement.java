@@ -2,8 +2,11 @@ package kr.knu.busreservations;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
 import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,6 +15,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.MongoClientSettings.*;
+import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class DBManagement {
     public static final String ID_KEY = "user_id";
@@ -53,9 +59,8 @@ public class DBManagement {
         MongoCollection<Document> testCollection = testDatabase.getCollection("testcollection");
         testCollection.find().forEach(printBlock);
 
-        setCollection(BUSES_COLLECTION);
-        Document queryResult = collection.find().first();
-        System.out.println("Hello");
+        insertTerminalsIntoDB("testdb");
+        insertBusIntoDB("testdb");
     }
 
     private static Block<Document> printBlock = document -> System.out.println(document.toJson());
@@ -177,5 +182,67 @@ public class DBManagement {
         setCollection(TERMINALS_COLLECTION);
         Document queryResult = collection.find(eq("id", terminalId)).first();
         return (String) queryResult.get("name");
+    }
+
+    private void insertTerminalsIntoDB(String dbName) {
+        setDatabase(dbName);
+        setCollection(TERMINALS_COLLECTION);
+
+        Document queryResult = collection.find(eq("id", 1)).first();
+        Document newTerminal = new Document();
+        if (queryResult == null) {
+            newTerminal.put("id", 1);
+            newTerminal.put("name", "Seoul");
+        }
+
+        collection.insertOne(newTerminal);
+
+        queryResult = collection.find(eq("id", 2)).first();
+        newTerminal = new Document();
+        if (queryResult == null) {
+            newTerminal.put("id", 2);
+            newTerminal.put("name", "Dongdaegu");
+        }
+
+        collection.insertOne(newTerminal);
+    }
+
+    private void insertBusIntoDB(String dbName) {
+        setDatabase(dbName);
+        setCollection(BUSES_COLLECTION);
+
+        Document queryResult = collection.find(eq("id", 1)).first();
+
+        if (queryResult != null)
+            return;
+
+        ArrayList<Seat> seats = new ArrayList<>();
+        Random random = new Random();
+        Boolean occupied;
+
+        List<BasicDBObject> seatObjects = new ArrayList<>();
+//        int seatNo;
+//        boolean occupied;
+//        int ticketId;
+//        int userId;
+
+        for (int i = 1; i < 29; i++) {
+            occupied = random.nextBoolean();
+            if (!occupied)
+                seatObjects.add(new BasicDBObject("occupied", false).append("seatNo", i));
+            else
+                seatObjects.add(new BasicDBObject("occupied", true)
+                        .append("seatNo", i)
+                        .append("ticketId", random.nextInt(2000))
+                        .append("userId", random.nextInt(2000)));
+        }
+
+        Document newBusDocument = new Document();
+        newBusDocument.append("id", 1);
+        newBusDocument.append("startTerminalId", 1);
+        newBusDocument.append("endTerminalID", 2);
+        newBusDocument.append("seats", seatObjects);
+
+        collection.insertOne(newBusDocument);
     }
 }

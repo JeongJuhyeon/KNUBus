@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kr.knu.busreservations.UI">
    <bottom>
       <GridPane prefHeight="233.0" prefWidth="381.0" BorderPane.alignment="CENTER">
@@ -63,7 +62,7 @@
             </AnchorPane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
-                  <TextField fx:id="LoginIsSuccess" alignment="CENTER" editable="false" layoutX="118.0" layoutY="18.0" prefHeight="22.0" prefWidth="108.0" style="-fx-background-color: 244,244,244;" />
+                  <TextField fx:id="Login_success" alignment="CENTER" editable="false" layoutX="98.0" layoutY="18.0" prefHeight="22.0" prefWidth="215.0" style="-fx-background-color: 244,244,244;" />
                </children>
             </Pane>
             <AnchorPane prefHeight="58.0" prefWidth="230.0" GridPane.columnIndex="1">

@@ -22,19 +22,23 @@ import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 import static kr.knu.busreservations.SignupCheck.SignupResult.SUCCESS;
 
 
 public class UI extends Application {
 
+    Logger logger = Logger.getLogger("My Logger");
     @FXML
     public TextField id=new TextField();
     @FXML
     public TextField pw=new TextField();
 
     @FXML
-    private TextField LoginIsSuccess=new TextField();
+    private TextField Login_success=new TextField();
 
     @FXML
     public TextField signUpId=new TextField();
@@ -69,7 +73,7 @@ public class UI extends Application {
     public void start(Stage primaryStage) throws Exception {
         URL url = getClass().getResource("Login.fxml");
         if (url == null) {
-            System.out.println("Can't load FXML file");
+            logger.log(Level.INFO, "Can't load FXML file");
             Platform.exit();
         }
 
@@ -84,7 +88,7 @@ public class UI extends Application {
         //SignUp Test
         SignupCheck SignUp = new SignupCheck();
         SignUp.signup("test1234", "123456", 20, "Test");
-        System.out.println("수행되었음");
+        logger.log(Level.INFO, "수행되었음");
         */
 
         // Login Test
@@ -93,9 +97,9 @@ public class UI extends Application {
 
 
         if(Login.login("messi", "1234"))
-            LoginIsSuccess.setText("Success");
+            Login_success.setText("Success");
         else
-            LoginIsSuccess.setText("Failure");
+            Login_success.setText("Failure");
         */
     }
 
@@ -103,20 +107,36 @@ public class UI extends Application {
     public void Login() throws Exception {
 
         LoginInterface Login = new LoginInterface();
-        if (Login.login(id.getText(), pw.getText())) {
-            LoginIsSuccess.setText("Success");
 
+        if(id.getText().trim().isEmpty() && pw.getText().trim().isEmpty())
+        {
+            Login_success.setText("ID와 PW를 입력하세요");
+
+
+        }else if(pw.getText().trim().isEmpty())
+        {
+
+            Login_success.setText("PW를 입력하세요");
+        } else if(id.getText().trim().isEmpty())
+        {
+            Login_success.setText("ID를 입력하세요");
 
         } else {
-            LoginIsSuccess.setText("Failure");
+            if (Login.login(id.getText(), pw.getText())) {
+                Login_success.setText("Success");
 
+
+            } else {
+                Login_success.setText("Failure");
+
+            }
         }
         /*
         // 창 새로 띄워서 하고 싶은데, 일단 보류
-        Parent loginLoot = FXMLLoader.load(getClass().getResource("LoginIsSuccess.fxml"));
+        Parent loginLoot = FXMLLoader.load(getClass().getResource("Login_success.fxml"));
         Stage primaryStage = new Stage();
         Scene scene = new Scene(loginLoot);
-        lblStatus.setText(LoginIsSuccess.getText());
+        lblStatus.setText(Login_success.getText());
         primaryStage.setScene(scene);
         primaryStage.show();
     */
@@ -128,7 +148,7 @@ public class UI extends Application {
             Stage primaryStage = new Stage();
             URL url = getClass().getResource("SignUp.fxml");
             if (url == null) {
-                System.out.println("Can't load FXML file");
+                logger.log(Level.INFO, "Can't load FXML file");
                 Platform.exit();
             }
 

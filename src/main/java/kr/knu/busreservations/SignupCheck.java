@@ -28,12 +28,12 @@ public class SignupCheck {
         //		name should be only alphabetic
         //		age //占쏙옙占시울옙占쏙옙 확占쏙옙
 
-        int check_ascii;
-        int idlen = id.length();
-        int pwlen = pw.length();
-        int namelen = name.length();
+        int checkAscii;
+        int idLength = id.length();
+        int pwLength = pw.length();
+        int nameLength = name.length();
 
-        if (id.length() < 1 || id.length() > 20)
+        if (idLength < 1 || idLength > 20)
             return signupResult.IDFORMATERROR;
 
         if (id.chars().anyMatch(n -> !Character.isLetterOrDigit(n)))
@@ -41,10 +41,10 @@ public class SignupCheck {
         if (id.chars().anyMatch(n-> Character.UnicodeBlock.of(n) != Character.UnicodeBlock.BASIC_LATIN))
             return signupResult.IDFORMATERROR;
 
-        if (pwlen <= 30 && pwlen >= 6) {
-            for (int i = 0; i < pwlen; i++) {
-                check_ascii = (int) pw.charAt(i);
-                if (check_ascii < 33 || check_ascii > 126)
+        if (pwLength <= 30 && pw.length() >= 6) {
+            for (int i = 0; i < pwLength; i++) {
+                checkAscii = (int) pw.charAt(i);
+                if (checkAscii < 33 || checkAscii > 126)
                     return signupResult.PWERROR;
             }
         } else
@@ -53,7 +53,7 @@ public class SignupCheck {
         if (age < 1)
             return signupResult.AGEERROR;
 
-        if (namelen > 50 || namelen < 2)
+        if (nameLength > 50 || nameLength < 2)
             return signupResult.NAMEERROR;
         else {
             if (name.chars().anyMatch(n -> !Character.isLetter(n) && !Character.isSpaceChar(n)))
@@ -71,7 +71,7 @@ public class SignupCheck {
     }
 
     void signup(String id, String pw, int age, String name) {
-        Map<String, String> userDetails = new HashMap<String, String>();
+        Map<String, String> userDetails = new HashMap();
 
 
         userDetails.put("username", id);

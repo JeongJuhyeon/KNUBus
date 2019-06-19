@@ -59,19 +59,6 @@ public class DBManagement {
         MongoCollection<Document> testCollection = testDatabase.getCollection("testcollection");
         testCollection.find().forEach(printBlock);
 
-
-    }
-
-    public void initTestDB(){
-        BasicDBObject document = new BasicDBObject();
-
-        setDatabase("testdb");
-        setCollection(TERMINALS_COLLECTION);
-        collection.deleteMany(document);
-
-        setCollection(BUSES_COLLECTION);
-        collection.deleteMany(document);
-
         insertTerminalsIntoDB("testdb");
         insertBusIntoDB("testdb");
     }
@@ -164,21 +151,11 @@ public class DBManagement {
     }
 
 
-    /**
-     * @param busId Id of the bus to search for
-     * @return null if busId not in db, else the relevant bus as Bus object
-     */
     Bus getBusById(int busId){
-
-
-
         List<Seat> seatList = new ArrayList<Seat>();
 
         setCollection(BUSES_COLLECTION);
         Document queryResult = collection.find(eq("id", busId)).first();
-
-        if (queryResult == null)
-            return null;
 
         ArrayList<Document> seatDocuments = (ArrayList<Document>) queryResult.get("seats");
 
@@ -263,7 +240,7 @@ public class DBManagement {
         Document newBusDocument = new Document();
         newBusDocument.append("id", 1);
         newBusDocument.append("startTerminalId", 1);
-        newBusDocument.append("endTerminalId", 2);
+        newBusDocument.append("endTerminalID", 2);
         newBusDocument.append("seats", seatObjects);
 
         collection.insertOne(newBusDocument);

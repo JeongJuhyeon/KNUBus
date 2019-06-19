@@ -1,6 +1,5 @@
 package kr.knu.busreservations;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Bus {

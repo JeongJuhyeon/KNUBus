@@ -3,21 +3,10 @@ package kr.knu.busreservations;
 public class LoginInterface {
 
     public boolean login(String id, String pw) {
-        String ID = id;
-        String password = pw;
-
-
-
         DBManagement DB = new DBManagement("p3");
 
-        User login_user = DB.verifyUserDetails(ID, password);
+        User loginUser = DB.verifyUserDetails(id, pw);
 
-        if (login_user != null)
-            return true;
-
-        return false;
+        return (loginUser != null);
     }
-
-
-
 }

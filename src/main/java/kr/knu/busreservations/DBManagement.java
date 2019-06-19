@@ -2,31 +2,29 @@ package kr.knu.busreservations;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
-import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
 import org.bson.Document;
-import org.bson.codecs.configuration.CodecRegistry;
-import org.bson.codecs.pojo.PojoCodecProvider;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.security.SecureRandom;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.mongodb.client.model.Filters.*;
-import static com.mongodb.MongoClientSettings.*;
-import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
-import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class DBManagement {
     public static final String ID_KEY = "user_id";
+    public static final String OCCUPIED_KEY = "occupied";
+    public static final String SEATNO_KEY = "seatNo";
     private static MongoClient mongoClient = null;
     private MongoDatabase database;
     private MongoCollection<Document> collection;
     private static final String USERS_COLLECTION = "users";
     private static final String BUSES_COLLECTION = "buses";
     private static final String TERMINALS_COLLECTION = "terminals";
+
+    private Random random = new SecureRandom();
 
     public static void main(String[] args) {
         DBManagement dbManagement = new DBManagement();
@@ -59,8 +57,21 @@ public class DBManagement {
         MongoCollection<Document> testCollection = testDatabase.getCollection("testcollection");
         testCollection.find().forEach(printBlock);
 
-        insertTerminalsIntoDB("p3");
-        insertBusIntoDB("p3");
+
+    }
+
+    public void initTestDB(){
+        BasicDBObject document = new BasicDBObject();
+
+        setDatabase("testdb");
+        setCollection(TERMINALS_COLLECTION);
+        collection.deleteMany(document);
+
+        setCollection(BUSES_COLLECTION);
+        collection.deleteMany(document);
+
+        insertTerminalsIntoDB("testdb");
+        insertBusIntoDB("testdb");
     }
 
     private static Block<Document> printBlock = document -> System.out.println(document.toJson());
@@ -151,23 +162,33 @@ public class DBManagement {
     }
 
 
+    /**
+     * @param busId Id of the bus to search for
+     * @return null if busId not in db, else the relevant bus as Bus object
+     */
     Bus getBusById(int busId){
-        List<Seat> seatList = new ArrayList<Seat>();
+
+
+
+        List<Seat> seatList;
 
         setCollection(BUSES_COLLECTION);
         Document queryResult = collection.find(eq("id", busId)).first();
 
+        if (queryResult == null)
+            return null;
+
         ArrayList<Document> seatDocuments = (ArrayList<Document>) queryResult.get("seats");
 
-        seatList = seatDocuments.stream().filter(d -> (Boolean) d.get("occupied"))
-                                         .map(d -> new Seat(possibleDoubleTointeger(d.get("seatNo")),
-                                     (Boolean) d.get("occupied"), possibleDoubleTointeger(d.get("ticketId")),
+        seatList = seatDocuments.stream().filter(d -> (Boolean) d.get(OCCUPIED_KEY))
+                                         .map(d -> new Seat(possibleDoubleTointeger(d.get(SEATNO_KEY)),
+                                     (Boolean) d.get(OCCUPIED_KEY), possibleDoubleTointeger(d.get("ticketId")),
                                      possibleDoubleTointeger(d.get("userId"))))
                                          .collect(Collectors.toList());
 
-        seatList.addAll(seatDocuments.stream().filter(d -> !((Boolean) d.get("occupied")))
-                                              .map(d -> new Seat(possibleDoubleTointeger(d.get("seatNo")),
-                                                      (Boolean) d.get("occupied"))).collect(Collectors.toList()));
+        seatList.addAll(seatDocuments.stream().filter(d -> !((Boolean) d.get(OCCUPIED_KEY)))
+                                              .map(d -> new Seat(possibleDoubleTointeger(d.get(SEATNO_KEY)),
+                                                      (Boolean) d.get(OCCUPIED_KEY))).collect(Collectors.toList()));
 
         int startTerminalId = possibleDoubleTointeger(queryResult.get("startTerminalId"));
         int endTerminalId = possibleDoubleTointeger(queryResult.get("endTerminalId"));
@@ -216,23 +237,17 @@ public class DBManagement {
         if (queryResult != null)
             return;
 
-        ArrayList<Seat> seats = new ArrayList<>();
-        Random random = new Random();
         Boolean occupied;
 
         List<BasicDBObject> seatObjects = new ArrayList<>();
-//        int seatNo;
-//        boolean occupied;
-//        int ticketId;
-//        int userId;
 
         for (int i = 1; i < 29; i++) {
             occupied = random.nextBoolean();
             if (!occupied)
-                seatObjects.add(new BasicDBObject("occupied", false).append("seatNo", i));
+                seatObjects.add(new BasicDBObject(OCCUPIED_KEY, false).append(SEATNO_KEY, i));
             else
-                seatObjects.add(new BasicDBObject("occupied", true)
-                        .append("seatNo", i)
+                seatObjects.add(new BasicDBObject(OCCUPIED_KEY, true)
+                        .append(SEATNO_KEY, i)
                         .append("ticketId", random.nextInt(2000))
                         .append("userId", random.nextInt(2000)));
         }

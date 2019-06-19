@@ -165,7 +165,7 @@ public class UI extends Application {
             }
 
             Parent root = FXMLLoader.load(url);
-           primaryStage.setScene(new Scene(root, 365, 382));
+           primaryStage.setScene(new Scene(root, 485, 444));
             primaryStage.show();
 
 
@@ -180,17 +180,19 @@ public class UI extends Application {
         SignUpHelpPW.setText("");
         SignUpHelpAge.setText("");
         SignUpHelp.setText("");
+        SignUpIsSuccess.setText("");
 
+        logger.log(Level.INFO, "초기화");
 
-        if(signUpId.getText().trim().isEmpty()) {
+        if(signUpId.getText().isEmpty()) {
             SignUpHelpID.setText("ID를 입력하세요");
             Sign_isPass=0;
         }
-        if(signUpName.getText().trim().isEmpty()) {
+        if(signUpName.getText().isEmpty()) {
             SignUpHelpName.setText("이름을 입력하세요");
             Sign_isPass=0;
         }
-        if(signUpPw.getText().trim().isEmpty()) {
+        if(signUpPw.getText().isEmpty()) {
             SignUpHelpPW.setText("PW를 입력하세요");
             Sign_isPass=0;
         }
@@ -199,6 +201,7 @@ public class UI extends Application {
             Sign_isPass=0;
         }
 
+        logger.log(Level.INFO, "result에 넣기");
 
         if(Sign_isPass==1)
         {
@@ -213,7 +216,7 @@ public class UI extends Application {
 
 
 
-
+        logger.log(Level.INFO, "케이스 들어가기전");
 
 
 
@@ -237,7 +240,7 @@ public class UI extends Application {
                 break;
                 case NAMEERROR: {
                     SignUpIsSuccess.setText("Wrong Name");
-                    SignUpHelp.setText("Name is wrong, it shoud be between 2 and 50, korean");
+                    SignUpHelp.setText("Name is wrong, it shoud be between 2 and 50, korean,alphabet");
 
                 }
                 break;
@@ -255,7 +258,7 @@ public class UI extends Application {
                 break;
                 case IDFORMATERROR: {
                     SignUpIsSuccess.setText("Wrong ID Format");
-                    SignUpHelp.setText("ID Format is wrong. it should be between 1 and 20, alphabet");
+                    SignUpHelp.setText("ID Format is wrong. it should be between 1 and 20, alphabet, number");
 
                 }
                 break;

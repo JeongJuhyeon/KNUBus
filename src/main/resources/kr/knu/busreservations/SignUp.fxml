@@ -7,26 +7,25 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="382.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kr.knu.busreservations.UI">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kr.knu.busreservations.UI">
    <children>
-      <TextField fx:id="signUpName" layoutX="124.0" layoutY="45.0" />
-      <TextField fx:id="signUpId" layoutX="124.0" layoutY="79.0" />
-      <PasswordField fx:id="signUpPw" layoutX="124.0" layoutY="120.0" />
-      <DatePicker fx:id="dateofBirth" layoutX="124.0" layoutY="158.0" onAction="#showAge" onDragDetected="#showAge" onDragDone="#showAge" onDragDropped="#showAge" onDragEntered="#showAge" onDragExited="#showAge" onDragOver="#showAge" onMouseDragEntered="#showAge" onMouseDragExited="#showAge" onMouseDragOver="#showAge" onMouseDragReleased="#showAge" />
-      <Button layoutX="161.0" layoutY="349.0" mnemonicParsing="false" onAction="#SignUp" text="Sign up" textAlignment="CENTER" />
-      <Label layoutX="42.0" layoutY="42.0" prefHeight="32.0" prefWidth="61.0" text="Name" textAlignment="CENTER" AnchorPane.topAnchor="42.0" />
-      <Label layoutX="43.0" layoutY="83.0" prefHeight="18.0" prefWidth="44.0" text="ID" textAlignment="CENTER" />
-      <Label layoutX="43.0" layoutY="120.0" prefHeight="26.0" prefWidth="44.0" text="PW" textAlignment="CENTER" />
-      <Label layoutX="42.0" layoutY="155.0" prefHeight="32.0" prefWidth="62.0" text="BirthDate" textAlignment="CENTER" />
-      <Label layoutX="40.0" layoutY="197.0" prefHeight="32.0" prefWidth="92.0" text="Caculated Age" textAlignment="CENTER" />
-      <TextField fx:id="ageField" editable="false" focusTraversable="false" layoutX="140.0" layoutY="200.0" prefHeight="26.0" prefWidth="136.0" style="-fx-background-color: 244,244,244;" />
-      <TextField fx:id="SignUpIsSuccess" alignment="CENTER" editable="false" layoutX="124.0" layoutY="229.0" style="-fx-background-color: 244,244,244;" />
-      <TextField fx:id="SignUpHelp" alignment="CENTER" editable="false" layoutX="27.0" layoutY="267.0" prefHeight="26.0" prefWidth="336.0" style="-fx-background-color: 244,244,244;" />
-      <TextField fx:id="SignUpHelp1" alignment="CENTER" editable="false" layoutX="26.0" layoutY="267.0" prefHeight="26.0" prefWidth="336.0" style="-fx-background-color: 244,244,244;" />
-      <TextField fx:id="SignUpHelpID" alignment="CENTER" editable="false" layoutX="24.0" layoutY="321.0" prefHeight="26.0" prefWidth="159.0" style="-fx-background-color: 244,244,244;" />
-      <TextField fx:id="SignUpHelpPW" alignment="CENTER" editable="false" layoutX="206.0" layoutY="321.0" prefHeight="26.0" prefWidth="159.0" style="-fx-background-color: 244,244,244;" />
-      <TextField fx:id="SignUpHelpName" alignment="CENTER" editable="false" layoutX="26.0" layoutY="293.0" prefHeight="26.0" prefWidth="143.0" style="-fx-background-color: 244,244,244;" />
-      <TextField fx:id="SignUpHelpAge" alignment="CENTER" editable="false" layoutX="210.0" layoutY="293.0" prefHeight="26.0" prefWidth="152.0" style="-fx-background-color: 244,244,244;" />
+      <TextField fx:id="signUpName" layoutX="243.0" layoutY="32.0" />
+      <TextField fx:id="signUpId" layoutX="243.0" layoutY="70.0" />
+      <PasswordField fx:id="signUpPw" layoutX="243.0" layoutY="106.0" />
+      <DatePicker fx:id="dateofBirth" layoutX="243.0" layoutY="158.0" onAction="#showAge" onDragDetected="#showAge" onDragDone="#showAge" onDragDropped="#showAge" onDragEntered="#showAge" onDragExited="#showAge" onDragOver="#showAge" onMouseDragEntered="#showAge" onMouseDragExited="#showAge" onMouseDragOver="#showAge" onMouseDragReleased="#showAge" />
+      <Button layoutX="212.0" layoutY="393.0" mnemonicParsing="false" onAction="#SignUp" text="Sign up" textAlignment="CENTER" />
+      <Label layoutX="140.0" layoutY="29.0" prefHeight="32.0" prefWidth="61.0" text="Name" textAlignment="CENTER" AnchorPane.topAnchor="29.0" />
+      <Label layoutX="149.0" layoutY="74.0" prefHeight="18.0" prefWidth="44.0" text="ID" textAlignment="CENTER" />
+      <Label layoutX="149.0" layoutY="106.0" prefHeight="26.0" prefWidth="44.0" text="PW" textAlignment="CENTER" />
+      <Label layoutX="132.0" layoutY="155.0" prefHeight="32.0" prefWidth="62.0" text="BirthDate" textAlignment="CENTER" />
+      <Label layoutX="117.0" layoutY="197.0" prefHeight="32.0" prefWidth="92.0" text="Caculated Age" textAlignment="CENTER" />
+      <TextField fx:id="ageField" editable="false" focusTraversable="false" layoutX="294.0" layoutY="200.0" prefHeight="26.0" prefWidth="136.0" style="-fx-background-color: 244,244,244;" />
+      <TextField fx:id="SignUpIsSuccess" alignment="CENTER" editable="false" layoutX="166.0" layoutY="240.0" style="-fx-background-color: 244,244,244;" />
+      <TextField fx:id="SignUpHelp" alignment="CENTER" editable="false" layoutX="31.0" layoutY="266.0" prefHeight="26.0" prefWidth="438.0" style="-fx-background-color: 244,244,244;" />
+      <TextField fx:id="SignUpHelpID" alignment="CENTER" editable="false" layoutX="22.0" layoutY="360.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;" />
+      <TextField fx:id="SignUpHelpPW" alignment="CENTER" editable="false" layoutX="244.0" layoutY="360.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;" />
+      <TextField fx:id="SignUpHelpName" alignment="CENTER" editable="false" layoutX="23.0" layoutY="306.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;" />
+      <TextField fx:id="SignUpHelpAge" alignment="CENTER" editable="false" layoutX="250.0" layoutY="306.0" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: 244,244,244;" />
 
    </children>
 </AnchorPane>

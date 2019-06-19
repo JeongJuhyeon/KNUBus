@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.SecureRandom;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static com.mongodb.client.model.Filters.*;
@@ -17,6 +19,7 @@ public class DBManagement {
     public static final String ID_KEY = "user_id";
     public static final String OCCUPIED_KEY = "occupied";
     public static final String SEATNO_KEY = "seatNo";
+    public static final String TEST_DB = "testdb";
     private static MongoClient mongoClient = null;
     private MongoDatabase database;
     private MongoCollection<Document> collection;
@@ -25,6 +28,7 @@ public class DBManagement {
     private static final String TERMINALS_COLLECTION = "terminals";
 
     private Random random = new SecureRandom();
+    private static Logger logger = Logger.getLogger("My Logger");
 
     public static void main(String[] args) {
         DBManagement dbManagement = new DBManagement();
@@ -38,7 +42,7 @@ public class DBManagement {
     }
 
     public DBManagement(){
-        this("testdb");
+        this(TEST_DB);
     }
 
 
@@ -74,7 +78,7 @@ public class DBManagement {
         insertBusIntoDB("testdb");
     }
 
-    private static Block<Document> printBlock = document -> System.out.println(document.toJson());
+    private static Block<Document> printBlock = document -> logger.log(Level.INFO, document.toJson());
 
     boolean usernameAlreadyExists(String username){
         setCollection(USERS_COLLECTION);
@@ -94,7 +98,6 @@ public class DBManagement {
 
     User verifyUserDetails(String username, String password){
         setCollection(USERS_COLLECTION);
-        // Debugging: collection.find().forEach(printBlock);
 
         BasicDBObject query = new BasicDBObject();
         List<BasicDBObject> obj = new ArrayList<>();
@@ -121,7 +124,7 @@ public class DBManagement {
             scanner.close();
         }
         catch(FileNotFoundException e) {
-            System.err.println(e);
+            logger.log(Level.INFO, e.getMessage());
             System.exit(3);
         }
 

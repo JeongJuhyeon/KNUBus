@@ -180,17 +180,34 @@ public class UI extends Application {
         int NowMonth = (dateofBirth.getValue().getMonthValue());
         int day=now.get(Calendar.DATE);
         int NowDate=(dateofBirth.getValue().getDayOfMonth());
-
+        int age=year - birthYear + 1;;
        //0살 핸들링
-        logger.log(Level.INFO, Integer.toString(month));
-        logger.log(Level.INFO, Integer.toString(NowMonth));
+       // logger.log(Level.INFO, Integer.toString(month)+"month");
+       // logger.log(Level.INFO, Integer.toString(NowMonth)+"Now month");
+        if(age==1) {
+            logger.log(Level.INFO, Integer.toString(age)+"age");
+            if (month + 1 == NowMonth) {
 
-        if(month>NowMonth)
-        {
-            if(day>NowDate)
-                ageField.setText("0");
+                //logger.log(Level.INFO, Integer.toString(day) + "Date");
+               // logger.log(Level.INFO, Integer.toString(NowDate) + "Now Date");
+
+                if (day < NowDate)
+                    age = 0;
+                else
+                    age = 1;
+
+            } else if (month + 1 < NowMonth) {
+               // logger.log(Level.INFO, Integer.toString(age)+"age");
+                //logger.log(Level.INFO, Integer.toString(day) + "Date");
+                //logger.log(Level.INFO, Integer.toString(NowDate) + "Now Date");
+
+                age = 0;
+
+
+            } else {
+                age = year - birthYear + 1;
+            }
         }
-        int age = year - birthYear + 1;
         ageField.setText(Integer.toString(age));
 
 
@@ -422,6 +439,8 @@ public class UI extends Application {
 
         if(Sign_isPass==1)
         {
+
+
             SignUp.signupResult=SignUp.signupData(signUpId.getText(), signUpPw.getText(),Integer.parseInt(ageField.getText()), signUpName.getText());
 
 

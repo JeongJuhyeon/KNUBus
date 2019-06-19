@@ -103,7 +103,7 @@ public class DBManagement {
         query.put("$and", obj);
 
         Document result = collection.find(query).first();
-        if (result == null) {
+        if (result == null || result.isEmpty()) {
             return null;
         }
 
@@ -143,7 +143,7 @@ public class DBManagement {
         Document result = collection.find().sort(new Document().append(ID_KEY, -1)).first();
         int userId;
 
-        if (result == null) {
+        if (result == null || result.isEmpty()) {
             System.out.println("No database entries with 'user_id' field found");
             return 1;
         }
@@ -175,7 +175,7 @@ public class DBManagement {
         setCollection(BUSES_COLLECTION);
         Document queryResult = collection.find(eq("id", busId)).first();
 
-        if (queryResult == null)
+        if (queryResult == null || queryResult.isEmpty())
             return null;
 
         ArrayList<Document> seatDocuments = (ArrayList<Document>) queryResult.get("seats");
@@ -211,7 +211,7 @@ public class DBManagement {
 
         Document queryResult = collection.find(eq("id", 1)).first();
         Document newTerminal = new Document();
-        if (queryResult == null) {
+        if (queryResult == null || queryResult.isEmpty()) {
             newTerminal.put("id", 1);
             newTerminal.put("name", "Seoul");
         }
@@ -220,7 +220,7 @@ public class DBManagement {
 
         queryResult = collection.find(eq("id", 2)).first();
         newTerminal = new Document();
-        if (queryResult == null) {
+        if (queryResult == null || queryResult.isEmpty()) {
             newTerminal.put("id", 2);
             newTerminal.put("name", "Dongdaegu");
         }
@@ -234,7 +234,7 @@ public class DBManagement {
 
         Document queryResult = collection.find(eq("id", 1)).first();
 
-        if (queryResult != null)
+        if (queryResult != null || queryResult.isEmpty())
             return;
 
         Boolean occupied;

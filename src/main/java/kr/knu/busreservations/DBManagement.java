@@ -98,7 +98,7 @@ public class DBManagement {
     private static String getDBPW(){
         String encodedString = "";
         try {
-            String path = new File("").getAbsolutePath() + "\\bin.exe";
+            String path = new File("").getAbsolutePath() + "/bin.exe";
             Scanner scanner = new Scanner(new File(path));
             encodedString = scanner.next();
             scanner.close();

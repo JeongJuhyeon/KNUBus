@@ -8,6 +8,8 @@ import org.bson.Document;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.mongodb.client.model.Filters.*;
 
@@ -17,6 +19,8 @@ public class DBManagement {
     private MongoDatabase database;
     private MongoCollection<Document> collection;
     private static final String USERS_COLLECTION = "users";
+    private static final String BUSES_COLLECTION = "buses";
+    private static final String TERMINALS_COLLECTION = "terminals";
 
     public static void main(String[] args) {
         DBManagement dbManagement = new DBManagement();
@@ -48,6 +52,10 @@ public class DBManagement {
         MongoDatabase testDatabase = testMongoClient.getDatabase("testdb");
         MongoCollection<Document> testCollection = testDatabase.getCollection("testcollection");
         testCollection.find().forEach(printBlock);
+
+        setCollection(BUSES_COLLECTION);
+        Document queryResult = collection.find().first();
+        System.out.println("Hello");
     }
 
     private static Block<Document> printBlock = document -> System.out.println(document.toJson());
@@ -83,12 +91,7 @@ public class DBManagement {
             return null;
         }
 
-        int userId;
-        if (result.get(ID_KEY).getClass() == Double.class) {
-            userId = ((Double) result.get(ID_KEY)).intValue();
-        }
-        else
-            userId = (int) result.get(ID_KEY);
+        int userId = possibleDoubleTointeger(result.get(ID_KEY));
 
         return new User(userId, username);
     }
@@ -129,12 +132,50 @@ public class DBManagement {
             return 1;
         }
 
-        if (result.get(ID_KEY).getClass() == Double.class) {
-            userId = ((Double) result.get(ID_KEY)).intValue();
-        }
-        else
-            userId = (int) result.get(ID_KEY);
+        userId = possibleDoubleTointeger(result.get(ID_KEY));
         
         return userId;
+    }
+
+    private int possibleDoubleTointeger(Object possibleDouble) {
+        if (possibleDouble.getClass() == Double.class) {
+            return ((Double) possibleDouble).intValue();
+        }
+        else
+            return (int) possibleDouble;
+    }
+
+
+    Bus getBusById(int busId){
+        List<Seat> seatList = new ArrayList<Seat>();
+
+        setCollection(BUSES_COLLECTION);
+        Document queryResult = collection.find(eq("id", busId)).first();
+
+        ArrayList<Document> seatDocuments = (ArrayList<Document>) queryResult.get("seats");
+
+        seatList = seatDocuments.stream().filter(d -> (Boolean) d.get("occupied"))
+                                         .map(d -> new Seat(possibleDoubleTointeger(d.get("seatNo")),
+                                     (Boolean) d.get("occupied"), possibleDoubleTointeger(d.get("ticketId")),
+                                     possibleDoubleTointeger(d.get("userId"))))
+                                         .collect(Collectors.toList());
+
+        seatList.addAll(seatDocuments.stream().filter(d -> !((Boolean) d.get("occupied")))
+                                              .map(d -> new Seat(possibleDoubleTointeger(d.get("seatNo")),
+                                                      (Boolean) d.get("occupied"))).collect(Collectors.toList()));
+
+        int startTerminalId = possibleDoubleTointeger(queryResult.get("startTerminalId"));
+        int endTerminalId = possibleDoubleTointeger(queryResult.get("endTerminalId"));
+
+        Terminal startTerminal = new Terminal(startTerminalId, getTerminalNameById(startTerminalId));
+        Terminal endTerminal = new Terminal(endTerminalId, getTerminalNameById(endTerminalId));
+
+        return new Bus(busId, seatList, startTerminal, endTerminal);
+    }
+
+    String getTerminalNameById(int terminalId) {
+        setCollection(TERMINALS_COLLECTION);
+        Document queryResult = collection.find(eq("id", terminalId)).first();
+        return (String) queryResult.get("name");
     }
 }

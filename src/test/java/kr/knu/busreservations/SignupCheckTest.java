@@ -68,7 +68,7 @@ public class SignupCheckTest {
         result = signupCheck.signupData("toooooooooooooooooong", "regularpw", 15, "regularname");
         Assert.assertEquals(SignupCheck.SignupResult.IDFORMATERROR, result); // long id
         result = signupCheck.signupData("regularid_", "regularpw", 15, "regularname");
-        Assert.assertEquals(SignupCheck.SignupResult.IDFORMATERROR, result); // regular + _ character id ******need to check
+        Assert.assertEquals(SignupCheck.SignupResult.IDFORMATERROR, result); // regular + _ character id
         result = signupCheck.signupData("regularid00", "regularpw", 15, "regularname");
         Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // regular + number id
         result = signupCheck.signupData("RegularId", "regularpw", 15, "regularname");
@@ -113,7 +113,7 @@ public class SignupCheckTest {
         result = signupCheck.signupData("regularid", "regularpw", 15, "regularname_");
         Assert.assertEquals(SignupCheck.SignupResult.NAMEERROR, result); // regular + _ character name
         result = signupCheck.signupData("regularid", "regularpw", 15, "regularname99");
-        Assert.assertEquals(SignupCheck.SignupResult.NAMEERROR, result); // regular + number name ******need to check
+        Assert.assertEquals(SignupCheck.SignupResult.NAMEERROR, result); // regular + number name
         result = signupCheck.signupData("regularid", "regularpw", 15, "RegularName");
         Assert.assertEquals(SignupCheck.SignupResult.SUCCESS, result); // regular but Upper name
         result = signupCheck.signupData("regularid", "regularpw", 15, "regularnameㄱ");
@@ -131,7 +131,8 @@ public class SignupCheckTest {
     @Test
     public void testSignup() throws Exception {
         // TODO Still need to add the rest of the keys, values to the map
-        Map<String, String> testMap = Map.of("username", "etcetc");
+        Map<String, String> testMap = Map.of("username", "regularid", "passsword", "regularpw", "age", "15", "name", "regularname");
+        signupCheck.signup("regularid", "regularpw", 15, "regularname");
         doNothing().when(dBManagement).createNewUser(testMap);
         //signupCheck.signup();
     }

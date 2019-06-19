@@ -1,7 +1,6 @@
 package kr.knu.busreservations;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +17,19 @@ import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+
+class FxmlException extends  RuntimeException{
+    FxmlException(){
+        super();
+    }
+    FxmlException(String message){
+        super(message);
+    }
+
+
+}
+
 
 public class UI extends Application {
 
@@ -128,7 +140,7 @@ public class UI extends Application {
         URL url = getClass().getResource("Login.fxml");
         if (url == null) {
 
-            throw new RuntimeException("Can't load Login.fxml file");
+            throw new FxmlException("Can't find Login.fxml");
 
         }
 
@@ -171,7 +183,7 @@ public class UI extends Application {
         Stage primaryStage = new Stage();
         URL url = getClass().getResource("Search.fxml");
         if (url == null) {
-            throw new RuntimeException("Can't load Search.fxml file");
+            throw new FxmlException("Can't find Search.fxml");
         }
 
         Parent root = FXMLLoader.load(url);
@@ -229,7 +241,7 @@ public class UI extends Application {
         Stage primaryStage = new Stage();
         URL url = getClass().getResource("Main.fxml");
         if (url == null) {
-            throw new RuntimeException("Can't load Main.fxml file");
+            throw new FxmlException("Can't find Main.fxml");
         }
 
         Parent root = FXMLLoader.load(url);
@@ -247,7 +259,7 @@ public class UI extends Application {
             Stage primaryStage = new Stage();
             URL url = getClass().getResource("SignUp.fxml");
             if (url == null) {
-                throw new RuntimeException("Can't load SignUp.fxml file");
+                throw new FxmlException("Can't find SignUp.fxml");
             }
 
             Parent root = FXMLLoader.load(url);

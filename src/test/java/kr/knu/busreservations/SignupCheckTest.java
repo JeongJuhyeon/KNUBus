@@ -29,6 +29,7 @@ public class SignupCheckTest {
 
     @Test
     public void testSignupData() throws Exception {
+
         when(dBManagement.usernameAlreadyExists("existingid")).thenReturn(true);
         when(dBManagement.usernameAlreadyExists("regularid")).thenReturn(false);
         when(dBManagement.usernameAlreadyExists("s")).thenReturn(false);

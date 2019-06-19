@@ -59,8 +59,21 @@ public class DBManagement {
         MongoCollection<Document> testCollection = testDatabase.getCollection("testcollection");
         testCollection.find().forEach(printBlock);
 
-        insertTerminalsIntoDB("p3");
-        insertBusIntoDB("p3");
+
+    }
+
+    public void initTestDB(){
+        BasicDBObject document = new BasicDBObject();
+
+        setDatabase("testdb");
+        setCollection(TERMINALS_COLLECTION);
+        collection.deleteMany(document);
+
+        setCollection(BUSES_COLLECTION);
+        collection.deleteMany(document);
+
+        insertTerminalsIntoDB("testdb");
+        insertBusIntoDB("testdb");
     }
 
     private static Block<Document> printBlock = document -> System.out.println(document.toJson());
@@ -151,11 +164,21 @@ public class DBManagement {
     }
 
 
+    /**
+     * @param busId Id of the bus to search for
+     * @return null if busId not in db, else the relevant bus as Bus object
+     */
     Bus getBusById(int busId){
+
+
+
         List<Seat> seatList = new ArrayList<Seat>();
 
         setCollection(BUSES_COLLECTION);
         Document queryResult = collection.find(eq("id", busId)).first();
+
+        if (queryResult == null)
+            return null;
 
         ArrayList<Document> seatDocuments = (ArrayList<Document>) queryResult.get("seats");
 

@@ -72,6 +72,24 @@ public class DBManagementTest {
         result = dBManagement.usernameAlreadyExists("Messi");
         Assert.assertEquals(true, result);
     }
+
+    @Test
+    public void testGetTerminalNameById() throws Exception {
+        dBManagement.initTestDB();
+        String name = dBManagement.getTerminalNameById(1);
+        Assert.assertEquals("Seoul", name);
+    }
+
+    @Test
+    public void testGetBusById() throws Exception {
+        dBManagement.initTestDB();
+        Bus testBus = dBManagement.getBusById(1);
+        Assert.assertEquals(1, testBus.id);
+        Assert.assertEquals(28, testBus.seats.size());
+        Assert.assertEquals("Seoul", testBus.startTerminal.name);
+        testBus = dBManagement.getBusById(1231);
+        Assert.assertEquals(null, testBus);
+    }
 }
 
 //Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

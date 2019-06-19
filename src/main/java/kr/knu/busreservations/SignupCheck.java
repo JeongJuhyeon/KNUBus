@@ -28,7 +28,6 @@ public class SignupCheck {
         //		name should be only alphabetic
         //		age //占쏙옙占시울옙占쏙옙 확占쏙옙
 
-        int checkAscii;
         int idLength = id.length();
         int pwLength = pw.length();
         int nameLength = name.length();
@@ -41,33 +40,44 @@ public class SignupCheck {
         if (id.chars().anyMatch(n-> Character.UnicodeBlock.of(n) != Character.UnicodeBlock.BASIC_LATIN))
             return SignupCheck.SignupResult.IDFORMATERROR;
 
-        if (pwLength <= 30 && pw.length() >= 6) {
-            for (int i = 0; i < pwLength; i++) {
-                checkAscii = (int) pw.charAt(i);
-                if (checkAscii < 33 || checkAscii > 126)
-                    return SignupCheck.SignupResult.PWERROR;
-            }
-        } else
-            return SignupCheck.SignupResult.PWERROR;
+        if (pwCheck(pw, pwLength)) return SignupResult.PWERROR;
 
         if (age < 1)
             return SignupCheck.SignupResult.AGEERROR;
 
-        if (nameLength > 50 || nameLength < 2)
-            return SignupCheck.SignupResult.NAMEERROR;
-        else {
-            if (name.chars().anyMatch(n -> !Character.isLetter(n) && !Character.isSpaceChar(n)))
-                return SignupCheck.SignupResult.NAMEERROR;
-            boolean allLatin = name.chars().allMatch(n -> Character.UnicodeBlock.of(n) == Character.UnicodeBlock.BASIC_LATIN);
-            boolean allHangul = name.chars().allMatch(n -> Character.UnicodeBlock.of(n) == Character.UnicodeBlock.HANGUL_SYLLABLES);
-            if (!allLatin && !allHangul)
-                return SignupCheck.SignupResult.NAMEERROR;
-        }
+        if (nameCheck(name, nameLength)) return SignupResult.NAMEERROR;
 
         if (dbManagement.usernameAlreadyExists(id))
             return SignupCheck.SignupResult.IDEXISTSERROR;
 
         return SignupCheck.SignupResult.SUCCESS;
+    }
+
+    private boolean nameCheck(String name, int nameLength) {
+        if (nameLength > 50 || nameLength < 2)
+            return true;
+        else {
+            if (name.chars().anyMatch(n -> !Character.isLetter(n) && !Character.isSpaceChar(n)))
+                return true;
+            boolean allLatin = name.chars().allMatch(n -> Character.UnicodeBlock.of(n) == Character.UnicodeBlock.BASIC_LATIN);
+            boolean allHangul = name.chars().allMatch(n -> Character.UnicodeBlock.of(n) == Character.UnicodeBlock.HANGUL_SYLLABLES);
+            if (!allLatin && !allHangul)
+                return true;
+        }
+        return false;
+    }
+
+    private boolean pwCheck(String pw, int pwLength) {
+        int checkAscii;
+        if (pwLength <= 30 && pw.length() >= 6) {
+            for (int i = 0; i < pwLength; i++) {
+                checkAscii = (int) pw.charAt(i);
+                if (checkAscii < 33 || checkAscii > 126)
+                    return true;
+            }
+        } else
+            return true;
+        return false;
     }
 
     void signup(String id, String pw, int age, String name) {

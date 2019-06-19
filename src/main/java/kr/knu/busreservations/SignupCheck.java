@@ -34,40 +34,40 @@ public class SignupCheck {
         int nameLength = name.length();
 
         if (idLength < 1 || idLength > 20)
-            return signupResult.IDFORMATERROR;
+            return SignupCheck.SignupResult.IDFORMATERROR;
 
         if (id.chars().anyMatch(n -> !Character.isLetterOrDigit(n)))
-            return signupResult.IDFORMATERROR;
+            return SignupCheck.SignupResult.IDFORMATERROR;
         if (id.chars().anyMatch(n-> Character.UnicodeBlock.of(n) != Character.UnicodeBlock.BASIC_LATIN))
-            return signupResult.IDFORMATERROR;
+            return SignupCheck.SignupResult.IDFORMATERROR;
 
         if (pwLength <= 30 && pw.length() >= 6) {
             for (int i = 0; i < pwLength; i++) {
                 checkAscii = (int) pw.charAt(i);
                 if (checkAscii < 33 || checkAscii > 126)
-                    return signupResult.PWERROR;
+                    return SignupCheck.SignupResult.PWERROR;
             }
         } else
-            return signupResult.PWERROR;
+            return SignupCheck.SignupResult.PWERROR;
 
         if (age < 1)
-            return signupResult.AGEERROR;
+            return SignupCheck.SignupResult.AGEERROR;
 
         if (nameLength > 50 || nameLength < 2)
-            return signupResult.NAMEERROR;
+            return SignupCheck.SignupResult.NAMEERROR;
         else {
             if (name.chars().anyMatch(n -> !Character.isLetter(n) && !Character.isSpaceChar(n)))
-                return signupResult.NAMEERROR;
+                return SignupCheck.SignupResult.NAMEERROR;
             boolean all_latin = name.chars().allMatch(n -> Character.UnicodeBlock.of(n) == Character.UnicodeBlock.BASIC_LATIN);
             boolean all_hangul = name.chars().allMatch(n -> Character.UnicodeBlock.of(n) == Character.UnicodeBlock.HANGUL_SYLLABLES);
             if (!all_latin && !all_hangul)
-                return signupResult.NAMEERROR;
+                return SignupCheck.SignupResult.NAMEERROR;
         }
 
         if (dbManagement.usernameAlreadyExists(id))
-            return signupResult.IDEXISTSERROR;
+            return SignupCheck.SignupResult.IDEXISTSERROR;
 
-        return signupResult.SUCCESS;
+        return SignupCheck.SignupResult.SUCCESS;
     }
 
     void signup(String id, String pw, int age, String name) {

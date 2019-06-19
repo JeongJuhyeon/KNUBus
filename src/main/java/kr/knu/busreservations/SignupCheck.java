@@ -17,6 +17,7 @@ public class SignupCheck {
 
     SignupResult signupResult;
 
+
     public SignupCheck() {
         this.dbManagement = new DBManagement();
     }

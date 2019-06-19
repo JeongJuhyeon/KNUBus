@@ -57,6 +57,18 @@ public class UI extends Application {
     private TextField SignUpHelp=new TextField();
 
     @FXML
+    private TextField SignUpHelpName=new TextField();
+
+    @FXML
+    private TextField SignUpHelpID=new TextField();
+
+    @FXML
+    private TextField SignUpHelpPW=new TextField();
+
+    @FXML
+    private TextField SignUpHelpAge=new TextField();
+
+    @FXML
     private void showAge(){
         Calendar now = Calendar.getInstance();
         int year = now.get(Calendar.YEAR);
@@ -160,51 +172,95 @@ public class UI extends Application {
 
         }
     public void SignUp() throws Exception {
-        SignupCheck SignUp = new SignupCheck();
 
-        SignUp.signupResult=SignUp.signupData(signUpId.getText(), signUpPw.getText(),Integer.parseInt(ageField.getText()), signUpName.getText());
+        SignupCheck SignUp = new SignupCheck();
+        int Sign_isPass=1;
+        SignUpHelpID.setText("");
+        SignUpHelpName.setText("");
+        SignUpHelpPW.setText("");
+        SignUpHelpAge.setText("");
+        SignUpHelp.setText("");
+
+
+        if(signUpId.getText().trim().isEmpty()) {
+            SignUpHelpID.setText("ID를 입력하세요");
+            Sign_isPass=0;
+        }
+        if(signUpName.getText().trim().isEmpty()) {
+            SignUpHelpName.setText("이름을 입력하세요");
+            Sign_isPass=0;
+        }
+        if(signUpPw.getText().trim().isEmpty()) {
+            SignUpHelpPW.setText("PW를 입력하세요");
+            Sign_isPass=0;
+        }
+        if(dateofBirth.getValue() == null ) {
+            SignUpHelpAge.setText("생년월일을 선택하세요");
+            Sign_isPass=0;
+        }
+
+
+        if(Sign_isPass==1)
+        {
+            SignUp.signupResult=SignUp.signupData(signUpId.getText(), signUpPw.getText(),Integer.parseInt(ageField.getText()), signUpName.getText());
+
+
+
+        }
 
 
         //SignupData의 반환값이 성공일때만 아닐때는 일단 출력
 
-        switch(SignUp.signupResult) {
-            case SUCCESS: {
-                SignUp.signup(signUpId.getText(), signUpPw.getText(), Integer.parseInt(ageField.getText()), signUpName.getText());
-                SignUpIsSuccess.setText("Welcome");
-                SignUpHelp.setText("You can enjoy our service!");
 
-            }
-                break;
-            case AGEERROR: {
-                SignUpIsSuccess.setText("Wrong Age");
-                SignUpHelp.setText("Age is wrong, it should be over 1 year old");
 
-            }
-                break;
-            case NAMEERROR:{
-                SignUpIsSuccess.setText("Wrong Name");
-                SignUpHelp.setText("Name is wrong, it shoud be ~~");
 
-            }
-                break;
-            case PWERROR:{
-                SignUpIsSuccess.setText("Wrong Password");
-                SignUpHelp.setText("Password is wrong, it should be ~~");
 
-            }
-                break;
-            case IDEXISTSERROR: {
-                SignUpIsSuccess.setText("Exist ID");
-                SignUpHelp.setText("You tried ID that already exists. Please try other one.");
 
-            }
-                break;
-            case IDFORMATERROR: {
-                SignUpIsSuccess.setText("Wrong ID Format");
-                SignUpHelp.setText("ID Format is wrong. it should be ~~");
 
-            }
+        if (Sign_isPass==1)
+        {
+
+
+            switch (SignUp.signupResult) {
+                case SUCCESS: {
+                    SignUp.signup(signUpId.getText(), signUpPw.getText(), Integer.parseInt(ageField.getText()), signUpName.getText());
+                    SignUpIsSuccess.setText("Welcome");
+                    SignUpHelp.setText("You can enjoy our service!");
+
+                }
                 break;
+                case AGEERROR: {
+                    SignUpIsSuccess.setText("Wrong Age");
+                    SignUpHelp.setText("Age is wrong, it should be over 1 year old");
+
+                }
+                break;
+                case NAMEERROR: {
+                    SignUpIsSuccess.setText("Wrong Name");
+                    SignUpHelp.setText("Name is wrong, it shoud be between 2 and 50, korean");
+
+                }
+                break;
+                case PWERROR: {
+                    SignUpIsSuccess.setText("Wrong Password");
+                    SignUpHelp.setText("Password is wrong, it should be between 6 and 30");
+
+                }
+                break;
+                case IDEXISTSERROR: {
+                    SignUpIsSuccess.setText("Exist ID");
+                    SignUpHelp.setText("You tried ID that already exists. Please try other one.");
+
+                }
+                break;
+                case IDFORMATERROR: {
+                    SignUpIsSuccess.setText("Wrong ID Format");
+                    SignUpHelp.setText("ID Format is wrong. it should be between 1 and 20, alphabet");
+
+                }
+                break;
+            }
+
         }
 
     }

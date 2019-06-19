@@ -19,7 +19,7 @@ public class SignupCheck {
 
 
     public SignupCheck() {
-        this.dbManagement = new DBManagement();
+        this.dbManagement = new DBManagement("p3");
     }
 
     SignupResult signupData(String id, String pw, int age, String name) {

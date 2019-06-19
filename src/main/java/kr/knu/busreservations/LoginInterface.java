@@ -8,7 +8,7 @@ public class LoginInterface {
 
 
 
-        DBManagement DB = new DBManagement("testdb");
+        DBManagement DB = new DBManagement("p3");
 
         User login_user = DB.verifyUserDetails(ID, password);
 

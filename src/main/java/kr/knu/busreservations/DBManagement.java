@@ -126,6 +126,11 @@ public class DBManagement {
         Document result = collection.find().sort(new Document().append(ID_KEY, -1)).first();
         int user_id;
 
+        if (result == null) {
+            System.out.println("No database entries with 'user_id' field found");
+            return 1;
+        }
+
         if (result.get(ID_KEY).getClass() == Double.class) {
             user_id = ((Double) result.get(ID_KEY)).intValue();
         }

@@ -73,6 +73,7 @@ public class UI extends Application {
     private Pane mainPane1;
 
 
+
     @FXML
     private void showAge(){
         Calendar now = Calendar.getInstance();
@@ -82,7 +83,7 @@ public class UI extends Application {
         int nowMonth = (dateofBirth.getValue().getMonthValue());
         int day=now.get(Calendar.DATE);
         int nowDate=(dateofBirth.getValue().getDayOfMonth());
-        int age=year - birthYear + 1;;
+        int age=year - birthYear + 1;
 
         if(age==1) {
 
@@ -126,8 +127,9 @@ public class UI extends Application {
 
         URL url = getClass().getResource("Login.fxml");
         if (url == null) {
-            logger.log(Level.INFO, "Can't load Login.fxml file");
-            Platform.exit();
+
+            throw new RuntimeException("Can't load Login.fxml file");
+
         }
 
 
@@ -169,8 +171,7 @@ public class UI extends Application {
         Stage primaryStage = new Stage();
         URL url = getClass().getResource("Search.fxml");
         if (url == null) {
-            logger.log(Level.INFO, "Can't load Search.FXML file");
-            Platform.exit();
+            throw new RuntimeException("Can't load Search.fxml file");
         }
 
         Parent root = FXMLLoader.load(url);
@@ -228,8 +229,7 @@ public class UI extends Application {
         Stage primaryStage = new Stage();
         URL url = getClass().getResource("Main.fxml");
         if (url == null) {
-            logger.log(Level.INFO, "Can't load Main.FXML file");
-            Platform.exit();
+            throw new RuntimeException("Can't load Main.fxml file");
         }
 
         Parent root = FXMLLoader.load(url);
@@ -247,8 +247,7 @@ public class UI extends Application {
             Stage primaryStage = new Stage();
             URL url = getClass().getResource("SignUp.fxml");
             if (url == null) {
-                logger.log(Level.INFO, "Can't load FXML file");
-                Platform.exit();
+                throw new RuntimeException("Can't load SignUp.fxml file");
             }
 
             Parent root = FXMLLoader.load(url);

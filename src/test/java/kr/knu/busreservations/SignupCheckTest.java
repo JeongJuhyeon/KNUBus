@@ -130,11 +130,9 @@ public class SignupCheckTest {
 
     @Test
     public void testSignup() throws Exception {
-        // TODO Still need to add the rest of the keys, values to the map
         Map<String, String> testMap = Map.of("username", "regularid", "passsword", "regularpw", "age", "15", "name", "regularname");
+        //doNothing().when(dBManagement).createNewUser(testMap);
         signupCheck.signup("regularid", "regularpw", 15, "regularname");
-        doNothing().when(dBManagement).createNewUser(testMap);
-        //signupCheck.signup();
     }
 }
 

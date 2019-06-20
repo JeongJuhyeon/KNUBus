@@ -55,7 +55,7 @@
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></TextField>
-      <TextField fx:id="signUpHelp" editable="false" layoutX="9.0" layoutY="299.0" prefHeight="26.0" prefWidth="438.0" style="-fx-background-color: 244,244,244;">
+      <TextField fx:id="signUpHelp" alignment="CENTER" editable="false" layoutX="-3.0" layoutY="299.0" prefHeight="26.0" prefWidth="457.0" style="-fx-background-color: 244,244,244;">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font></TextField>

@@ -119,6 +119,8 @@ public class UI extends Application {
                 age = year - birthYear + 1;
             }
         }
+        if(age<0)
+            age = 0;
         ageField.setText(Integer.toString(age));
 
 
@@ -206,16 +208,16 @@ public class UI extends Application {
 
         if(id.getText().trim().isEmpty() && pw.getText().trim().isEmpty())
         {
-            loginSuccess.setText("ID와 PW를 입력하세요");
+            loginSuccess.setText("Enter ID & PW");
 
 
         }else if(pw.getText().trim().isEmpty())
         {
 
-            loginSuccess.setText("PW를 입력하세요");
+            loginSuccess.setText("Enter PW");
         } else if(id.getText().trim().isEmpty())
         {
-            loginSuccess.setText("ID를 입력하세요");
+            loginSuccess.setText("Enter ID");
 
         } else {
             if (loginInterface.login(id.getText(), pw.getText())) {
@@ -291,19 +293,19 @@ public class UI extends Application {
         logger.log(Level.INFO, "초기화");
 
         if(signUpId.getText().isEmpty()) {
-            signUpHelpId.setText("ID를 입력하세요");
+            signUpHelpId.setText("Enter ID");
             signIsPass=0;
         }
         if(signUpName.getText().isEmpty()) {
-            signUpHelpName.setText("이름을 입력하세요");
+            signUpHelpName.setText("Enter Name");
             signIsPass=0;
         }
         if(signUpPw.getText().isEmpty()) {
-            signUpHelpPw.setText("PW를 입력하세요");
+            signUpHelpPw.setText("Enter PW");
             signIsPass=0;
         }
         if(dateofBirth.getValue() == null ) {
-            signUpHelpAge.setText("생년월일을 선택하세요");
+            signUpHelpAge.setText("Select BirthDate");
             signIsPass=0;
         }
 
@@ -342,25 +344,25 @@ public class UI extends Application {
                 break;
                 case AGEERROR:
                     signUpIsSuccess.setText("Wrong Age");
-                    signUpHelp.setText("Age is wrong, it should be over 1 year old");
+                    signUpHelp.setText("Age should be over 1 year old");
 
 
                 break;
                 case NAMEERROR:
                     signUpIsSuccess.setText("Wrong Name");
-                    signUpHelp.setText("Name shoud be between 2 and 50, korean,alphabet");
+                    signUpHelp.setText("Name should be between 2 and 50 chars, alphabetic or hangul");
 
 
                 break;
                 case PWERROR:
                     signUpIsSuccess.setText("Wrong Password");
-                    signUpHelp.setText("Password is wrong, it should be between 6 and 30");
+                    signUpHelp.setText("Password should be between 6 and 30");
 
 
                 break;
                 case IDEXISTSERROR:
                     signUpIsSuccess.setText("Exist ID");
-                    signUpHelp.setText("You tried ID that already exists. Please try other one.");
+                    signUpHelp.setText("ID already exists. Please try other one.");
 
 
                 break;

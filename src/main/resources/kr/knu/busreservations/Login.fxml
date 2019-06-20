@@ -45,7 +45,7 @@
             <Font name="휴먼고딕" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="loginSuccess" alignment="CENTER" editable="false" layoutX="143.0" layoutY="274.0" prefHeight="22.0" prefWidth="164.0" style="-fx-background-color: 244,244,244;">
+      <TextField fx:id="loginSuccess" alignment="CENTER" editable="false" layoutX="65.0" layoutY="274.0" prefHeight="27.0" prefWidth="320.0" style="-fx-background-color: 244,244,244;">
          <font>
             <Font name="휴먼고딕" size="15.0" />
          </font>
